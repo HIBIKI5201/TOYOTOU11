@@ -12,27 +12,28 @@ namespace TOYOTOU.Runtime
         public event Action OnTimeUp;
         /// <summary> 時間制限超過かどうか </summary>
         public bool IsTimeUp => _isTimeUp;
+        public float RemainTime => _isTimeUp ? 0 : _remainTime;
 
         /// <summary>
         ///     タイマーを開始する。
         /// </summary>
         public void StartTimer()
         {
-            _timer = _timeLimit;
+            _remainTime = _timeLimit;
             _isTimeUp = false;
         }
 
         [SerializeField, Tooltip("タイムリミット(秒)")] private float _timeLimit = 30f;
 
-        private float _timer = 0f;
+        private float _remainTime = 0f;
         private bool _isTimeUp = true;
 
         void Update()
         {
             if (_isTimeUp) { return; } // 時間制限超過後は処理しない。
 
-            _timer -= Time.deltaTime;
-            if (_timer <= 0)
+            _remainTime -= Time.deltaTime;
+            if (_remainTime <= 0)
             {
                 OnTimeUp?.Invoke();
                 _isTimeUp = true;
