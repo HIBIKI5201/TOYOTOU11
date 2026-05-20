@@ -35,7 +35,7 @@ namespace TOYOTOU.Runtime
             _remainHitPoint = _maxHitPoint;
             _rb.mass = _weight;
 
-            model.SetParent(transform);
+            model.SetParent(_rotater.transform);
         }
 
         /// <summary>
