@@ -21,11 +21,12 @@ namespace TOYOTOU.Runtime
             Task timerTask = _timer.WaitTimeUp().AsTask();
             Task playerTask = _playerInit.WaitAnyPlayerDead().AsTask();
             await Task.WhenAny(timerTask, playerTask);
-
+            _result.JudgeWinner(_playerInit);
         }
 
         [SerializeField] private PlayerInitializer _playerInit;
         [SerializeField] private OpenningTimeline _timeline;
         [SerializeField] private InGameTimer _timer;
+        [SerializeField] private ResultManager _result;
     }
 }
