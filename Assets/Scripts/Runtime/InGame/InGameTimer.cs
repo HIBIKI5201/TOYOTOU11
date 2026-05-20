@@ -35,7 +35,7 @@ namespace TOYOTOU.Runtime
                 CancellationTokenSource.CreateLinkedTokenSource(
                 token, destroyCancellationToken);
             
-            while (!_isTimeUp)
+            while (!_isTimeUp && !linkedCts.Token.IsCancellationRequested)
             {
                 try
                 {
