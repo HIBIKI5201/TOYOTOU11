@@ -2,23 +2,20 @@ using UnityEngine;
 
 namespace TOYOTOU.Runtime
 {
-    public class PlayerStatus : MonoBehaviour
+    public class PlayerStatus : ScriptableObject
     {
+        public float MaxHitPoint => _maxHitPoint;
+        public float AttackPower => _attackPower;
+        public float BounceForce => _bounceForce;
+        public float Weight => _weight;
+        public float MaxSpeed => _maxSpeed;
+        public float Acceleration => _acceleration;
 
-        [SerializeField] public int hitpoint = 10;
-        [SerializeField] public int attack = 10;
-
-        PlayerMoving _player;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            _player = GetComponent<PlayerMoving>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        [SerializeField] private float _maxHitPoint = 10;
+        [SerializeField] private float _attackPower = 10;
+        [SerializeField] private float _bounceForce = 10f;
+        [SerializeField] private float _weight = 1f;
+        [SerializeField] private float _maxSpeed = 10f;
+        [SerializeField] private float _acceleration = 0.5f;
     }
 }
