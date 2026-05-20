@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 
 namespace TOYOTOU.Runtime
@@ -20,7 +19,7 @@ namespace TOYOTOU.Runtime
             {
                 await Awaitable.WaitForSecondsAsync((float)_director.duration, destroyCancellationToken);
             }
-            catch(OperationCanceledException) { }
+            catch (OperationCanceledException) { }
         }
 
         [Header("Text")]

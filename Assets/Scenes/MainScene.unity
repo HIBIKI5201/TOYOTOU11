@@ -1001,6 +1001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 676630303}
   - component: {fileID: 676630304}
+  - component: {fileID: 676630305}
   m_Layer: 0
   m_Name: Openning
   m_TagString: Untagged
@@ -1037,11 +1038,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056b37f3a21b94148965bdbdf5296535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ready: {fileID: 1078949023}
-  Gosign: {fileID: 811899072}
-  timer: {fileID: 0}
-  winner: {fileID: 0}
-  title: {fileID: 0}
+  _ready: {fileID: 1078949023}
+  _gosign: {fileID: 811899072}
+--- !u!320 &676630305
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676630302}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 0}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &734864405
 GameObject:
   m_ObjectHideFlags: 0
