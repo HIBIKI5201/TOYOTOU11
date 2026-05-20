@@ -5,6 +5,14 @@ namespace TOYOTOU.Runtime
 {
     public class ConflictResolver : MonoBehaviour
     {
+        public void Init(PlayerManager player1, PlayerManager player2)
+        {
+            _player1 = player1;
+            _player2 = player2;
+
+            _player1.OnConflicted += ConflictHandler;
+        }
+
         public void ConflictHandler(PlayerManager alpha, PlayerManager beta)
         {            
             float powerAlpha = alpha.PreviousVelocity * alpha.AttackPower;
@@ -22,13 +30,8 @@ namespace TOYOTOU.Runtime
             Debug.Log(alpha2Beta);
         }
 
-        [SerializeField] private PlayerManager _player1;
-        [SerializeField] private PlayerManager _player2;
-
-        private void Start()
-        {
-            _player1.OnConflicted += ConflictHandler;
-        }
+        private PlayerManager _player1;
+        private PlayerManager _player2;
 
         private void ResolveRigidBody(Rigidbody rb, Vector3 dir, float force)
         {
