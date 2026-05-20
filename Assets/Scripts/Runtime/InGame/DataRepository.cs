@@ -6,6 +6,7 @@ namespace TOYOTOU.Runtime
     public class DataRepository : ScriptableObject
     {
         public PlayerStatus[] States => _stateses;
+
         [SerializeField] PlayerStatus[] _stateses;
     }
 }

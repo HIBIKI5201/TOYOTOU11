@@ -16,9 +16,6 @@ namespace TOYOTOU.Runtime
             PlayerStatus status1 = state.Player1Status;
             PlayerStatus status2 = state.Player2Status;
 
-            if (status1 == null) { status1 = _defaultPlayer1Status; }
-            if (status2 == null) { status2 = _defaultPlayer2Status; }
-
             _player1Manager.Init(status1, state.Player1Model);
             _player2Manager.Init(status2, state.Player2Model);
 
@@ -64,8 +61,6 @@ namespace TOYOTOU.Runtime
 
         [SerializeField] private PlayerManager _player1Manager;
         [SerializeField] private PlayerManager _player2Manager;
-        [SerializeField] private PlayerStatus _defaultPlayer1Status;
-        [SerializeField] private PlayerStatus _defaultPlayer2Status;
         [SerializeField] private ConflictResolver _resolver;
     }
 }
