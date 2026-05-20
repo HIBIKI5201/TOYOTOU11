@@ -6,6 +6,7 @@ namespace TOYOTOU.Runtime
     {
         [SerializeField] private GameManager _gm;
         [SerializeField] private InGameLoopManager _ingameLoop;
+        [SerializeField] private DataRepository _dataRepository;
 
         [SerializeField] private InputActionKeyConfig _player1;
         [SerializeField] private InputActionKeyConfig _player2;
@@ -19,8 +20,11 @@ namespace TOYOTOU.Runtime
         [ContextMenu(nameof(GameStart))]
         public void GameStart()
         {
-            _gm.State.Player1Model = _selector1.GetSelectedModel();
-            _gm.State.Player2Model = _selector2.GetSelectedModel();
+            GameState state = _gm.State;
+            state.Player1Model = _selector1.GetSelectedModel();
+            state.Player2Model = _selector2.GetSelectedModel();
+            state.Player1Status = _dataRepository.States[_selector1.Index];
+            state.Player2Status = _dataRepository.States[_selector2.Index];
 
             _gm.SetActiveIngameObjs(true);
             _ingameLoop.GameStart();
