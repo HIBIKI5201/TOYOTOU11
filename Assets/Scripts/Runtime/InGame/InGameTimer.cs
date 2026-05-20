@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TOYOTOU.Runtime
@@ -23,12 +24,28 @@ namespace TOYOTOU.Runtime
             _isTimeUp = false;
         }
 
+        /// <summary>
+        ///     タイムアップするまで終わらないタスク。
+        /// </summary>
+        /// <returns></returns>
+        public async ValueTask WaitTimeUp()
+        {
+            while (!_isTimeUp)
+            {
+                try
+                {
+                    await Awaitable.NextFrameAsync(destroyCancellationToken);
+                }
+                catch (OperationCanceledException) { }
+            }
+        }
+
         [SerializeField, Tooltip("タイムリミット(秒)")] private float _timeLimit = 30f;
 
         private float _remainTime = 0f;
         private bool _isTimeUp = true;
 
-        void Update()
+        private void Update()
         {
             if (_isTimeUp) { return; } // 時間制限超過後は処理しない。
 
