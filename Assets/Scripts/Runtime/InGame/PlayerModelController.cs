@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TOYOTOU
 {
-    public class CharacterModelController : MonoBehaviour
+    public class PlayerModelController : MonoBehaviour
     {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
