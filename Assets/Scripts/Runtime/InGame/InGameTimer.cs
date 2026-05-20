@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -28,13 +29,17 @@ namespace TOYOTOU.Runtime
         ///     タイムアップするまで終わらないタスク。
         /// </summary>
         /// <returns></returns>
-        public async ValueTask WaitTimeUp()
+        public async ValueTask WaitTimeUp(CancellationToken token = default)
         {
+            CancellationTokenSource linkedCts =
+                CancellationTokenSource.CreateLinkedTokenSource(
+                token, destroyCancellationToken);
+            
             while (!_isTimeUp)
             {
                 try
                 {
-                    await Awaitable.NextFrameAsync(destroyCancellationToken);
+                    await Awaitable.NextFrameAsync(linkedCts.Token);
                 }
                 catch (OperationCanceledException) { }
             }
