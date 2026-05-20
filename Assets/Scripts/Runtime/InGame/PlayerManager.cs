@@ -41,6 +41,16 @@ namespace TOYOTOU.Runtime
         /// <param name="value"></param>
         public void SetCanControl(bool value) => _canControl = value;
 
+        public void Sleep()
+        {
+            _rb.Sleep();
+        }
+
+        public void WakeUp()
+        {
+            _rb.WakeUp();
+        }
+
         /// <summary>
         ///     ダメージを受ける。
         /// </summary>
