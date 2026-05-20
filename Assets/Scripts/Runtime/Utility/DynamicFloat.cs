@@ -8,7 +8,7 @@ namespace TOYOTOU.Runtime
     /// </summary>
     public sealed class DynamicFloat
     {
-        /// <summary> 計算された値 </summary>
+        /// <summary> 計算された値。 </summary>
         public float Value => _value;
 
         public DynamicFloat(float initialValue = 0f)
