@@ -6,7 +6,7 @@ namespace TOYOTOU.Runtime
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out PlayerManager manager))
+            if (other.attachedRigidbody.TryGetComponent(out PlayerManager manager))
             {
                 manager.TakeDamage(9999);
             }
