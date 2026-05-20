@@ -1,50 +1,47 @@
-﻿
-using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class GameSystem : MonoBehaviour
 {
-
-
-[Header("Text")]
+    [Header("Text")]
     public GameObject ready;
     public GameObject Gosign;
-    public GameObject timer;
     public GameObject winner;
     public GameObject title;
 
     [Header("Other")]
     bool start = false;
+    public float battletime = 30f;
 
-    [Header("audio")]
-    public AudioSource gamewin;
-    public AudioSource fancall;
-    public AudioSource battlemusic;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Audio Clips")]
+    public AudioClip titleclip;
+    public AudioClip gamewin;
+    public AudioClip fancall;
+    public AudioClip rappa;
+    public AudioClip battlemusic;
 
-
+    [Header("Audio Sources")]
+    public AudioSource bgm;
+    public AudioSource sound;
 
     void Start()
     {
         winner.SetActive(false);
         ready.SetActive(false);
         Gosign.SetActive(false);
-        title.SetActive(true); 
+        title.SetActive(true);
+        bgm.PlayOneShot(titleclip);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Keyboard.current.fKey.wasPressedThisFrame && !start)
         {
             start = true;
+            bgm.Stop();           
             title.SetActive(false);
-            battlemusic.loop = true;
-            battlemusic.Play();
+
             StartCoroutine(BattleFlow());
         }
     }
@@ -53,32 +50,37 @@ public class GameSystem : MonoBehaviour
     {
         ready.SetActive(true);
         yield return new WaitForSeconds(2f);
-        ready.SetActive(false);
 
+        ready.SetActive(false);
         Gosign.SetActive(true);
         yield return new WaitForSeconds(1f);
+
         Gosign.SetActive(false);
 
-        float time = 30f;
+        bgm.clip = battlemusic;
+        bgm.loop = true;
+        bgm.Play();
 
-            time -= Time.deltaTime;
-            yield return null;
-        
-        if(time < 0f)
+        yield return new WaitForSeconds(battletime);
+
         Finish();
     }
 
-void Finish()
-        {
-            Debug.Log("time up");
-            gamewin.Play();
-            winner.SetActive(true);
-            fancall.Play();
+    void Finish()
+    {
+        Debug.Log("time up");
 
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                start = !start;
-                Start();
-            }
-        }
+        bgm.Stop();
+
+        sound.PlayOneShot(rappa);
+        sound.PlayOneShot(fancall);
+        bgm.clip = gamewin;
+        bgm.loop = false;
+        bgm.Play();
+
+        winner.SetActive(true);
+
+        start = false;
     }
+
+}
