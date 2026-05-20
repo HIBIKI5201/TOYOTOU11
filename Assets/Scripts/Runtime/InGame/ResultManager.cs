@@ -11,7 +11,8 @@ namespace TOYOTOU
         [SerializeField] private List<GameObject> _player1WinUI;
         [SerializeField] private List<GameObject> _player2WinUI;
 
-        private void Start()
+        [ContextMenu("Inactive UI")]
+        private void Awake()
         {
             _player1WinUI.ForEach(go => go.SetActive(false));
             _player2WinUI.ForEach(go => go.SetActive(false));

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Unity.Cinemachine;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -25,15 +27,18 @@ namespace TOYOTOU.Runtime
         [Header("Text")]
         [SerializeField] private GameObject _ready;
         [SerializeField] private GameObject _gosign;
+        [SerializeField] private CinemachineCamera _camera;
 
         private PlayableDirector _director;
 
+        [ContextMenu("Inactive UI")]
         private void Awake()
         {
             _director = GetComponent<PlayableDirector>();
 
             _ready.SetActive(false);
             _gosign.SetActive(false);
+            _camera.gameObject.SetActive(false);
         }
     }
 }
