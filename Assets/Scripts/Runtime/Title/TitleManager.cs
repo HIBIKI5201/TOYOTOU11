@@ -7,6 +7,7 @@ namespace TOYOTOU.Runtime
         [SerializeField] private GameManager _gm;
         [SerializeField] private InGameLoopManager _ingameLoop;
         [SerializeField] private DataRepository _dataRepository;
+        [SerializeField] private GameStartSequence _sequence;
 
         [SerializeField] private InputActionKeyConfig _player1;
         [SerializeField] private InputActionKeyConfig _player2;
@@ -35,6 +36,7 @@ namespace TOYOTOU.Runtime
         {
             _player1Navigater.Enable(_player1);
             _player2Navigater.Enable(_player2);
+            _sequence.OnSequencePlayed += GameStart;
         }
 
         private void OnDisable()
