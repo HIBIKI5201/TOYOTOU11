@@ -14,6 +14,7 @@ namespace TOYOTOU.Runtime
             _playerInit.Init();
             await _timeline.Play();
             _timer.StartTimer();
+            _playerInit.PlayerControlEnable();
         }
 
         [SerializeField] private PlayerInitializer _playerInit;
