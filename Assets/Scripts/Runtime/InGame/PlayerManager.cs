@@ -1,3 +1,4 @@
+using SymphonyFrameWork.Attribute;
 using UnityEngine;
 
 namespace TOYOTOU.Runtime
@@ -19,6 +20,8 @@ namespace TOYOTOU.Runtime
             _weight = playerStatus.Weight;
             _maxSpeed = playerStatus.MaxSpeed;
             _acceleration = playerStatus.Acceleration;
+
+            _rb.mass = _weight;
         }
 
         /// <summary>
@@ -34,6 +37,10 @@ namespace TOYOTOU.Runtime
             }
         }
 
+        [SerializeField] private Vector3 _startSpeed;
+        [SerializeField] private InputActionKeyConfig _keyConfig;
+        [SerializeField, TagSelector] private string _playerTag;
+
         private float _maxHitPoint;
         private float _attackPower;
         private float _bounceForce;
@@ -41,17 +48,23 @@ namespace TOYOTOU.Runtime
         private float _acceleration = 0.5f;
         private float _maxSpeed;
 
-        [SerializeField] private Vector3 _startSpeed;
-        [SerializeField] private InputActionKeyConfig _keyConfig;
-
         private Rigidbody _rb;
-        private Vector3 _moveDirection;
         private Vector3 _addVelocity;
         private Vector3 _currentMoveVelocity;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
+        }
+
+        private void OnEnable()
+        {
+            _keyConfig.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _keyConfig.Disable();
         }
 
         private void Start()
@@ -64,19 +77,19 @@ namespace TOYOTOU.Runtime
             if (_keyConfig == null) { return; }
 
             Vector2 input = _keyConfig.GetMoveValue();
-            _moveDirection = new Vector3(input.x, 0, input.y);
-            _addVelocity = _moveDirection * _acceleration;
+            Vector3 moveDirection = new Vector3(input.x, 0, input.y);
+            _addVelocity = moveDirection * _acceleration;
         }
 
         private void FixedUpdate()
         {
-            Move();
+            Move(Time.fixedDeltaTime);
         }
 
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag(_playerTag))
             {
                 PlayerManager PlayerRotation = collision.gameObject.GetComponent<PlayerManager>();
                 if (PlayerRotation != null)
@@ -94,9 +107,9 @@ namespace TOYOTOU.Runtime
             }
         }
 
-        private void Move()
+        private void Move(float delta)
         {
-            _currentMoveVelocity += _addVelocity;
+            _currentMoveVelocity += _addVelocity * delta;
 
             float magnitude = _currentMoveVelocity.magnitude;
             if (_maxSpeed < magnitude) // 最大速度を超えないようにする。
