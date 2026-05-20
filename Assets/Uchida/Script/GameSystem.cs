@@ -2,6 +2,7 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class GameSystem : MonoBehaviour
@@ -10,27 +11,43 @@ public class GameSystem : MonoBehaviour
     public float BattleTimer = 30;
     private float readytime = 2f;
 
-    [Header("Other")]
+    [Header("Text")]
     public GameObject ready;
     public GameObject Gosign;
     public GameObject timer;
     public GameObject winner;
-    
+    public GameObject title;
+
+    [Header("Other")]
+    bool start = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
+
     void Start()
     {
         winner.SetActive(false);
-        ready.SetActive(true);
+        ready.SetActive(false);
         Gosign.SetActive(false);
+        title.SetActive(true);
+        BattleTimer = 30f;
+        readytime = 2f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (winner != null)
+        if (Keyboard.current.fKey.wasPressedThisFrame)
         {
-           // timer.SetActive(true);
+            start = !start;
+            title.SetActive(false);
+        }
+
+        if (winner != null && start)
+        {
+            // timer.SetActive(true);
+            ready.SetActive(true);
             readytime -= Time.deltaTime;
 
             if (readytime <= 0)
@@ -46,16 +63,6 @@ public class GameSystem : MonoBehaviour
 
                 BattleTimer -= Time.deltaTime;
 
-                if (timer != null)
-                {
-                    BattleTimer -= Time.deltaTime;
-                    Debug.Log("timer起動中");
-                }
-
-                if (Mathf.Ceil(BattleTimer) / 5.00f == 0 && BattleTimer <= 30f)
-                {
-                    Debug.Log("5秒経過したので衝突が発生した");
-                }
                 if (BattleTimer <= 0f)
                 {
                     BattleTimer = 0;
@@ -68,6 +75,12 @@ public class GameSystem : MonoBehaviour
         {
             Debug.Log("time up");
             winner.SetActive(true);
+
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                start = !start;
+                Start();
+            }
         }
     }
-} 
+}
