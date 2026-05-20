@@ -6,11 +6,6 @@ namespace TOYOTOU.Runtime
 {
     public class InGameLoopManager : MonoBehaviour
     {
-        public void Start()
-        {
-            GameStart();
-        }
-
         public async void GameStart()
         {
             try
