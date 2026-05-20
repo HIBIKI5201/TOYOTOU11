@@ -24,6 +24,7 @@ namespace TOYOTOU.Runtime
         private void Start()
         {
             _rotateDirection.Normalize();
+            _isRotate = true;
         }
 
         private void Update()

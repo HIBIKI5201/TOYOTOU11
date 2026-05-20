@@ -26,9 +26,6 @@ namespace TOYOTOU.Runtime
             alpha2Beta.y = 0;
             alpha2Beta.Normalize();
 
-            ResolveRigidBody(alpha.Rigidbody, -alpha2Beta, alpha.BounceForce);
-            ResolveRigidBody(beta.Rigidbody, alpha2Beta, beta.BounceForce);
-
             OnConflicted?.Invoke();
 
             alpha.Sleep();
@@ -36,6 +33,9 @@ namespace TOYOTOU.Runtime
             await Awaitable.WaitForSecondsAsync(_hitStopTime);
             alpha.WakeUp();
             beta.WakeUp();
+
+            ResolveRigidBody(alpha.Rigidbody, -alpha2Beta, alpha.BounceForce);
+            ResolveRigidBody(beta.Rigidbody, alpha2Beta, beta.BounceForce);
         }
 
         [SerializeField] private float _hitStopTime = 0.2f;
