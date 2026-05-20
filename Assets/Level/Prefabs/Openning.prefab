@@ -426,6 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ready: {fileID: 3102617668714749639}
   _gosign: {fileID: 1749619680122138161}
+  _camera: {fileID: 1343592479840807474}
 --- !u!320 &4138317547026767392
 PlayableDirector:
   m_ObjectHideFlags: 0
