@@ -1,11 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public class PlayerRotation : MonoBehaviour
+public class PlayerMoving : MonoBehaviour
 {
     [SerializeField] public int Hitpoint = 10;
     [SerializeField] public int Attack = 10;
+    [SerializeField] public float bounceForce = 10f;
 
     [Header("加速力")]
     [SerializeField] private float _addSpeed = 0.5f;
@@ -19,6 +21,8 @@ public class PlayerRotation : MonoBehaviour
     private Vector3 _moveDirection;
     private Vector3 _addVelocity;
     private Vector3 _currentMoveVelocity;
+
+    public GameObject Bey;
 
     private void Awake()
     {
@@ -37,14 +41,14 @@ public class PlayerRotation : MonoBehaviour
 
         Keyboard keyboard = Keyboard.current;
 
-        if(keyboard == null) return;
+        if (keyboard == null) return;
 
         var wKey = keyboard.wKey;
         var aKey = keyboard.aKey;
         var dKey = keyboard.dKey;
         var sKey = keyboard.sKey;
 
-        if (wKey.IsPressed())// 前
+        if (wKey.IsPressed())// 前s
         {
             x = 1;
         }
@@ -74,12 +78,34 @@ public class PlayerRotation : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(gameObject.CompareTag("Player"))
+        if (gameObject.CompareTag("Player"))
         {
-           
+            PlayerMoving PlayerRotation = collision.gameObject.GetComponent<PlayerMoving>();
+            if (PlayerRotation != null)
+            {
+                PlayerRotation.TakeDamage(Attack);
+                Rigidbody otherRb=collision.gameObject.GetComponent<Rigidbody>();
+                if (otherRb != null) 
+                {
+                ContactPoint contact=collision.contacts[0];
+                Vector3 pushDirection = contact.normal;
+                GetComponent<Rigidbody>().AddForce(pushDirection*bounceForce, ForceMode.Impulse);
+                otherRb.AddForce(pushDirection*bounceForce,ForceMode.Impulse);
+
+                }
+            }
         }
     }
 
+    public void TakeDamage(int Attack)
+    {
+     Hitpoint -= Attack;
+        if(Hitpoint < 0)
+        {
+            Destroy(this);
+        }
+     }
+   
     private void Move()
     {
         _currentMoveVelocity += _addVelocity;
