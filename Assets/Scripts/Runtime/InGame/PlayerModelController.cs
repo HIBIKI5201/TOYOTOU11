@@ -1,19 +1,14 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace TOYOTOU
 {
     public class PlayerModelController : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        public void SetParent(Transform parent)
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            transform.SetParent(parent);
+            transform.DOLocalMove(Vector3.zero, 1);
         }
     }
 }
