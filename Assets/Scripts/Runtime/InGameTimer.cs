@@ -6,7 +6,7 @@ namespace TOYOTOU.Runtime
     /// <summary>
     ///     インゲームの時間制限タイマーの管理クラス。
     /// </summary>
-    public class DemoTimer : MonoBehaviour
+    public class InGameTimer : MonoBehaviour
     {
         /// <summary> 時間制限超過時に実行されるイベント </summary>
         public event Action OnTimeUp;
