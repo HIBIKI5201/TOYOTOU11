@@ -21,6 +21,7 @@ namespace TOYOTOU.Runtime
 
         private void Start()
         {
+            _characterModels = new CharacterModelController[_stetuses.Length];
             for (int i = 0; i < _stetuses.Length; i++)
             {
                 CharacterModelController model = Instantiate(_stetuses[i].Model, transform);

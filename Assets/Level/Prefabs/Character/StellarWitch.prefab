@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StellarWitch
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d172c22791a73d64ab9cfd99ee72de93, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 457783705e2b7194b8525fac288a2ade, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
