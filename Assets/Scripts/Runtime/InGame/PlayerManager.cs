@@ -43,12 +43,16 @@ namespace TOYOTOU.Runtime
 
         public void Sleep()
         {
+            _preSleepVelocity = _rb.linearVelocity;
             _rb.Sleep();
+            _rotater.Sleep();
         }
 
         public void WakeUp()
         {
+            _rotater.WakeUp();
             _rb.WakeUp();
+            _rb.linearVelocity = _preSleepVelocity;
         }
 
         /// <summary>
@@ -68,6 +72,7 @@ namespace TOYOTOU.Runtime
 
         [SerializeField] private InputActionKeyConfig _keyConfig;
         [SerializeField, TagSelector] private string _playerTag;
+        [SerializeField] private RotatePlayer _rotater;
 
         private float _maxHitPoint;
         private float _remainHitPoint;
@@ -78,9 +83,10 @@ namespace TOYOTOU.Runtime
         private float _maxSpeed;
 
         private Rigidbody _rb;
+        private bool _canControl;
         private Vector3 _addVelocity;
         private float _previousVelocity;
-        private bool _canControl;
+        private Vector3 _preSleepVelocity;
 
         private void Awake()
         {
