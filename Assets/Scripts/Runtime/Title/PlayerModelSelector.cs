@@ -42,6 +42,7 @@ namespace TOYOTOU.Runtime
             _index = index;
         }
 
+        [Tooltip("プレイヤーのステータスデータを参照するためのリポジトリ")]
         [SerializeField] private DataRepository _repo;
         private PlayerModelController[] _characterModels;
 

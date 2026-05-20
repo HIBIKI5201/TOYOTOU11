@@ -77,8 +77,11 @@ namespace TOYOTOU.Runtime
             }
         }
 
+        [Tooltip("プレイヤー1の管理コンポーネント")]
         [SerializeField] private PlayerManager _player1Manager;
+        [Tooltip("プレイヤー2の管理コンポーネント")]
         [SerializeField] private PlayerManager _player2Manager;
+        [Tooltip("プレイヤー間の衝突解決を管理するコンポーネント")]
         [SerializeField] private ConflictResolver _resolver;
     }
 }

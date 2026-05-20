@@ -17,8 +17,11 @@ namespace TOYOTOU.Runtime
         /// </summary>
         public event Action OnSequencePlayed;
 
+        [Tooltip("演出を再生するためのPlayableDirector")]
         [SerializeField] private PlayableDirector _director;
+        [Tooltip("プレイヤー1の準備完了ボタン")]
         [SerializeField] private ReadyButton _button1;
+        [Tooltip("プレイヤー2の準備完了ボタン")]
         [SerializeField] private ReadyButton _button2;
 
         private CancellationTokenSource _cts;

@@ -54,7 +54,7 @@ namespace TOYOTOU.Runtime
             ResolveRigidBody(beta.Rigidbody, alpha2Beta, beta.BounceForce);
         }
 
-        [SerializeField] private float _hitStopTime = 0.2f;
+        [SerializeField, Tooltip("衝突時のヒットストップ時間（秒）")] private float _hitStopTime = 0.2f;
 
         private PlayerManager _player1;
         private PlayerManager _player2;

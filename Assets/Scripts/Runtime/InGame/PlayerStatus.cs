@@ -43,12 +43,12 @@ namespace TOYOTOU.Runtime
         /// </summary>
         public float Acceleration => _acceleration;
 
-        [SerializeField] private PlayerModelController _model;
-        [SerializeField] private float _maxHitPoint = 10;
-        [SerializeField] private float _attackPower = 10;
-        [SerializeField] private float _bounceForce = 10f;
-        [SerializeField] private float _weight = 1f;
-        [SerializeField] private float _maxSpeed = 10f;
-        [SerializeField] private float _acceleration = 0.5f;
+        [SerializeField, Tooltip("プレイヤーのモデルプリセット")] private PlayerModelController _model;
+        [SerializeField, Tooltip("最大体力")] private float _maxHitPoint = 10;
+        [SerializeField, Tooltip("攻撃力")] private float _attackPower = 10;
+        [SerializeField, Tooltip("衝突時の跳ね返り係数")] private float _bounceForce = 10f;
+        [SerializeField, Tooltip("プレイヤーの重量（物理演算に影響）")] private float _weight = 1f;
+        [SerializeField, Tooltip("最大移動速度")] private float _maxSpeed = 10f;
+        [SerializeField, Tooltip("移動時の加速度")] private float _acceleration = 0.5f;
     }
 }

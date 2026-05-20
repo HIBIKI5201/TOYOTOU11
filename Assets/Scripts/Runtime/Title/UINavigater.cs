@@ -39,18 +39,28 @@ namespace TOYOTOU.Runtime
             key.Skill2Action.started -= SkillHandler;
         }
 
+        [Tooltip("プレイヤーモデルの選択を管理するコンポーネント")]
         [SerializeField] private PlayerModelSelector _playerSelector;
+        [Tooltip("プレイヤー選択UIの左矢印")]
         [SerializeField] private UIArrow _playerArrowLeft;
+        [Tooltip("プレイヤー選択UIの右矢印")]
         [SerializeField] private UIArrow _playerArrowRight;
         [Space]
+        [Tooltip("スキル1の選択を管理するコンポーネント")]
         [SerializeField] private SkillSelector _skill1Selector;
+        [Tooltip("スキル1選択UIの左矢印")]
         [SerializeField] private UIArrow _skill1ArrowLeft;
+        [Tooltip("スキル1選択UIの右矢印")]
         [SerializeField] private UIArrow _skill1ArrowRight;
         [Space]
+        [Tooltip("スキル2の選択を管理するコンポーネント")]
         [SerializeField] private SkillSelector _skill2Selector;
+        [Tooltip("スキル2選択UIの左矢印")]
         [SerializeField] private UIArrow _skill2ArrowLeft;
+        [Tooltip("スキル2選択UIの右矢印")]
         [SerializeField] private UIArrow _skill2ArrowRight;
         [Space]
+        [Tooltip("準備完了ボタンを管理するコンポーネント")]
         [SerializeField] private ReadyButton _ready;
 
         private InputActionKeyConfig _key;

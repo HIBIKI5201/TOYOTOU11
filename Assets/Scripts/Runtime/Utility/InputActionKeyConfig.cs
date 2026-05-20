@@ -56,9 +56,9 @@ namespace TOYOTOU.Runtime
         /// <returns>トリガーされていればtrue</returns>
         public bool IsTriggerdSkill2() => _skill2Action.triggered;
 
-        [SerializeField] private InputAction _moveAction;
-        [SerializeField] private InputAction _skill1Action;
-        [SerializeField] private InputAction _skill2Action;
+        [SerializeField, Tooltip("移動アクション")] private InputAction _moveAction;
+        [SerializeField, Tooltip("スキル1発動アクション")] private InputAction _skill1Action;
+        [SerializeField, Tooltip("スキル2発動アクション")] private InputAction _skill2Action;
 
         private void OnValidate()
         {

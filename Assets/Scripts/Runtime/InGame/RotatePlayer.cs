@@ -23,8 +23,8 @@ namespace TOYOTOU.Runtime
         /// </summary>
         public void Sleep() => _isRotate = false;
 
-        [SerializeField] private Vector3 _rotateDirection = new Vector3(0, 1, 0);
-        [SerializeField] private float _speed = 10f;
+        [SerializeField, Tooltip("回転軸の方向")] private Vector3 _rotateDirection = new Vector3(0, 1, 0);
+        [SerializeField, Tooltip("回転速度")] private float _speed = 10f;
 
         private bool _isRotate = true;
 

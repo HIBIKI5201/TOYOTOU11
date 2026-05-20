@@ -28,9 +28,9 @@ namespace TOYOTOU.Runtime
         }
 
         [Header("Text")]
-        [SerializeField] private GameObject _ready;
-        [SerializeField] private GameObject _gosign;
-        [SerializeField] private CinemachineCamera _camera;
+        [SerializeField, Tooltip("「Ready」テキストオブジェクト")] private GameObject _ready;
+        [SerializeField, Tooltip("「Go」テキストオブジェクト")] private GameObject _gosign;
+        [SerializeField, Tooltip("演出用のCinemachineカメラ")] private CinemachineCamera _camera;
 
         private PlayableDirector _director;
 

@@ -32,9 +32,9 @@ namespace TOYOTOU.Runtime
         /// </summary>
         public void GameReset() => SceneManager.LoadScene(_sceneName);
 
-        [SerializeField] List<GameObject> _titleObjes;
-        [SerializeField] List<GameObject> _ingameObjs;
-        [SerializeField, SceneNameSelector] string _sceneName;
+        [SerializeField, Tooltip("タイトルに関連するオブジェクトのリスト")] List<GameObject> _titleObjes;
+        [SerializeField, Tooltip("インゲームに関連するオブジェクトのリスト")] List<GameObject> _ingameObjs;
+        [SerializeField, Tooltip("リセット時にロードするシーン名"), SceneNameSelector] string _sceneName;
 
         private GameState _state;
         private void Awake()

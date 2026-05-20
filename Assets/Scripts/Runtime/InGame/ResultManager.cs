@@ -99,9 +99,9 @@ namespace TOYOTOU.Runtime
             await task.Task;
         }
 
-        [SerializeField] private List<GameObject> _player1WinUI;
-        [SerializeField] private List<GameObject> _player2WinUI;
-        [SerializeField] private List<GameObject> _drawUI;
+        [SerializeField, Tooltip("プレイヤー1勝利時に表示するUIオブジェクトのリスト")] private List<GameObject> _player1WinUI;
+        [SerializeField, Tooltip("プレイヤー2勝利時に表示するUIオブジェクトのリスト")] private List<GameObject> _player2WinUI;
+        [SerializeField, Tooltip("引き分け時に表示するUIオブジェクトのリスト")] private List<GameObject> _drawUI;
 
         [ContextMenu("Inactive UI")]
         private void Awake()

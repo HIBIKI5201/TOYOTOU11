@@ -106,8 +106,11 @@ namespace TOYOTOU.Runtime
             }
         }
 
+        [Tooltip("プレイヤーの入力アクション設定")]
         [SerializeField] private InputActionKeyConfig _keyConfig;
+        [Tooltip("プレイヤーを識別するためのタグ")]
         [SerializeField, TagSelector] private string _playerTag;
+        [Tooltip("プレイヤーの回転制御を管理するコンポーネント")]
         [SerializeField] private RotatePlayer _rotater;
 
         private float _maxHitPoint;
