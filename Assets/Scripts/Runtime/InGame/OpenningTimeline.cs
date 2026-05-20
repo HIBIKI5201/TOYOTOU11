@@ -12,6 +12,10 @@ namespace TOYOTOU.Runtime
     [RequireComponent(typeof(PlayableDirector))]
     public class OpenningTimeline : MonoBehaviour
     {
+        /// <summary>
+        /// オープニングのタイムライン演出を再生し、終了を待機します。
+        /// </summary>
+        /// <returns></returns>
         public async ValueTask Play()
         {
             _director.Play();

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// タイトル画面の全体的な管理と、ゲーム開始時の初期設定を行うクラス
+    /// </summary>
     public class TitleManager : MonoBehaviour
     {
         [SerializeField] private GameManager _gm;
@@ -18,6 +21,9 @@ namespace TOYOTOU.Runtime
         [SerializeField] private UINavigater _player1Navigater;
         [SerializeField] private UINavigater _player2Navigater;
 
+        /// <summary>
+        /// 選択された情報をゲーム状態に反映し、インゲームを開始します
+        /// </summary>
         [ContextMenu(nameof(GameStart))]
         public void GameStart()
         {

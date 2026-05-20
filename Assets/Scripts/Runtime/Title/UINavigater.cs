@@ -4,9 +4,16 @@ using UnityEngine.InputSystem;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// UIのナビゲーション（選択操作）を管理するクラス
+    /// </summary>
     [Serializable]
     public class UINavigater
     {
+        /// <summary>
+        /// ナビゲーションを有効にし、入力アクションのイベントを登録します
+        /// </summary>
+        /// <param name="key">使用する入力アクション設定</param>
         public void Enable(InputActionKeyConfig key)
         {
             _key = key;
@@ -21,6 +28,9 @@ namespace TOYOTOU.Runtime
             _selectArrows.Activate(_index);
         }
 
+        /// <summary>
+        /// ナビゲーションを無効にし、入力アクションのイベントを解除します
+        /// </summary>
         public void Disable()
         {
             InputActionKeyConfig key = _key;

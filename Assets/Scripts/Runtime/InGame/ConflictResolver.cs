@@ -3,10 +3,21 @@ using UnityEngine.Events;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// プレイヤー間の衝突（コンフリクト）を解決し、ダメージ計算やノックバック処理を行うクラス。
+    /// </summary>
     public class ConflictResolver : MonoBehaviour
     {
+        /// <summary>
+        /// プレイヤー同士が衝突した際に発行されるイベント。
+        /// </summary>
         public UnityEvent OnConflicted;
 
+        /// <summary>
+        /// 衝突解決クラスを初期化し、プレイヤーを登録します。
+        /// </summary>
+        /// <param name="player1">プレイヤー1のマネージャー</param>
+        /// <param name="player2">プレイヤー2のマネージャー</param>
         public void Init(PlayerManager player1, PlayerManager player2)
         {
             _player1 = player1;
@@ -15,6 +26,11 @@ namespace TOYOTOU.Runtime
             _player1.OnConflicted += ConflictHandler;
         }
 
+        /// <summary>
+        /// 衝突時の具体的な処理（ダメージ計算、ヒットストップ、ノックバック）を実行します。
+        /// </summary>
+        /// <param name="alpha">衝突したプレイヤーA</param>
+        /// <param name="beta">衝突したプレイヤーB</param>
         public async void ConflictHandler(PlayerManager alpha, PlayerManager beta)
         {
             float powerAlpha = alpha.PreviousVelocity * alpha.AttackPower;

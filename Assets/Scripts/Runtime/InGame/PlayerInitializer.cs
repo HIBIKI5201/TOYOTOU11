@@ -5,11 +5,25 @@ using UnityEngine;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// インゲーム開始時にプレイヤーの初期化を担当するクラス
+    /// </summary>
     public class PlayerInitializer : MonoBehaviour
     {
+        /// <summary>
+        /// 1PのPlayerManagerを取得します
+        /// </summary>
         public PlayerManager Player1 => _player1Manager;
+
+        /// <summary>
+        /// 2PのPlayerManagerを取得します
+        /// </summary>
         public PlayerManager Player2 => _player2Manager;
 
+        /// <summary>
+        /// 指定されたゲームマネージャーの情報を使用してプレイヤーを初期化します
+        /// </summary>
+        /// <param name="gm">初期化に使用するゲームマネージャー</param>
         public void Init(GameManager gm)
         {
             GameState state = gm.State;
@@ -22,6 +36,9 @@ namespace TOYOTOU.Runtime
             _resolver.Init(_player1Manager, _player2Manager);
         }
 
+        /// <summary>
+        /// 両プレイヤーの操作を有効にします
+        /// </summary>
         public void PlayerControlEnable()
         {
             _player1Manager.SetCanControl(true);
@@ -29,9 +46,10 @@ namespace TOYOTOU.Runtime
         }
 
         /// <summary>
-        ///     プレイヤーのどちらかが倒されるまで終わらないタスク。
+        /// プレイヤーのどちらかが倒されるまで待機する非同期タスクです
         /// </summary>
-        /// <returns></returns>
+        /// <param name="token">キャンセルトークン</param>
+        /// <returns>タスク</returns>
         public async ValueTask WaitAnyPlayerDead(CancellationToken token = default)
         {
             TaskCompletionSource<byte> task = new();

@@ -8,12 +8,19 @@ namespace TOYOTOU.Runtime
     public class RotatePlayer : MonoBehaviour
     {
         /// <summary>
-        ///     回転速度を設定する。
+        /// 回転速度を設定する。
         /// </summary>
         /// <param name="value"></param>
         public void SetSpeed(float value) => _speed = value;
 
+        /// <summary>
+        /// 回転処理を開始（再開）させます。
+        /// </summary>
         public void WakeUp() => _isRotate = true;
+
+        /// <summary>
+        /// 回転処理を停止させます。
+        /// </summary>
         public void Sleep() => _isRotate = false;
 
         [SerializeField] private Vector3 _rotateDirection = new Vector3(0, 1, 0);

@@ -14,6 +14,8 @@ namespace TOYOTOU.Runtime
         public event Action OnTimeUp;
         /// <summary> 時間制限超過かどうか </summary>
         public bool IsTimeUp => _isTimeUp;
+
+        /// <summary> 残り時間（秒） </summary>
         public float RemainTime => _isTimeUp ? 0 : _remainTime;
 
         /// <summary>

@@ -5,23 +5,50 @@ using UnityEngine;
 namespace TOYOTOU.Runtime
 {
     /// <summary>
-    ///     インゲームのプレイヤー全体を管理するクラス。
+    /// インゲームのプレイヤー個体を管理するクラス
     /// </summary>
     public class PlayerManager : MonoBehaviour
     {
+        /// <summary>
+        /// プレイヤーが死亡した際に通知されるイベント
+        /// </summary>
         public event Action OnDead;
+
+        /// <summary>
+        /// プレイヤー同士が衝突した際に通知されるイベント
+        /// </summary>
         public event Action<PlayerManager, PlayerManager> OnConflicted;
 
+        /// <summary>
+        /// 物理演算用のRigidbodyを取得します
+        /// </summary>
         public Rigidbody Rigidbody => _rb;
+
+        /// <summary>
+        /// 直前のフレームでの速度を取得します
+        /// </summary>
         public float PreviousVelocity => _previousVelocity;
+
+        /// <summary>
+        /// プレイヤーの攻撃力を取得します
+        /// </summary>
         public float AttackPower => _attackPower;
+
+        /// <summary>
+        /// プレイヤーの跳ね返り係数を取得します
+        /// </summary>
         public float BounceForce => _bounceForce;
+
+        /// <summary>
+        /// 残りの体力を取得します
+        /// </summary>
         public float RemainHitPoint => _remainHitPoint;
 
         /// <summary>
-        ///     初期化する。
+        /// プレイヤーを初期化します
         /// </summary>
-        /// <param name="playerStatus"></param>
+        /// <param name="playerStatus">プレイヤーの基本ステータス</param>
+        /// <param name="model">プレイヤーの表示モデル制御</param>
         public void Init(PlayerStatus playerStatus, PlayerModelController model)
         {
             _model = model;
@@ -39,11 +66,14 @@ namespace TOYOTOU.Runtime
         }
 
         /// <summary>
-        ///     操作可能状態を変更する。
+        /// 操作可能状態を変更します
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">trueで操作可能、falseで操作不能</param>
         public void SetCanControl(bool value) => _canControl = value;
 
+        /// <summary>
+        /// 物理演算と回転処理を一時停止（スリープ）させます
+        /// </summary>
         public void Sleep()
         {
             _preSleepVelocity = _rb.linearVelocity;
@@ -51,6 +81,9 @@ namespace TOYOTOU.Runtime
             _rotater.Sleep();
         }
 
+        /// <summary>
+        /// 一時停止状態から復帰（ウェイクアップ）させます
+        /// </summary>
         public void WakeUp()
         {
             _rotater.WakeUp();
@@ -59,9 +92,9 @@ namespace TOYOTOU.Runtime
         }
 
         /// <summary>
-        ///     ダメージを受ける。
+        /// 指定されたダメージを適用します
         /// </summary>
-        /// <param name="damage"></param>
+        /// <param name="damage">受けるダメージ量</param>
         public void TakeDamage(float damage)
         {
             _remainHitPoint -= damage;

@@ -4,8 +4,14 @@ using UnityEngine;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// インゲームのメインループ（初期化から終了まで）を制御するクラス
+    /// </summary>
     public class InGameLoopManager : MonoBehaviour
     {
+        /// <summary>
+        /// ゲームを開始し、終了条件が満たされるまで待機して結果表示を行います
+        /// </summary>
         public async void GameStart()
         {
             try

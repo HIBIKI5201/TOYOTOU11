@@ -6,9 +6,15 @@ using UnityEngine.Playables;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// ゲーム開始時の演出シークエンスを制御するクラス
+    /// </summary>
     [RequireComponent(typeof(PlayableDirector))]
     public class GameStartSequence : MonoBehaviour
     {
+        /// <summary>
+        /// シークエンスの再生が完了したときに通知されるイベント
+        /// </summary>
         public event Action OnSequencePlayed;
 
         [SerializeField] private PlayableDirector _director;

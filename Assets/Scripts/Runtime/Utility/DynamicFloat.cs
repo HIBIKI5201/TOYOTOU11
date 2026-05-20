@@ -11,6 +11,10 @@ namespace TOYOTOU.Runtime
         /// <summary> 計算された値。 </summary>
         public float Value => _value;
 
+        /// <summary>
+        /// 初期値を指定して DynamicFloat のインスタンスを作成します。
+        /// </summary>
+        /// <param name="initialValue">初期値</param>
         public DynamicFloat(float initialValue = 0f)
         {
             _baseValue = initialValue;

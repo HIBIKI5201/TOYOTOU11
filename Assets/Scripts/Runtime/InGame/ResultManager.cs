@@ -5,10 +5,20 @@ using UnityEngine;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// ゲーム終了後の結果判定とリザルトUIの表示を管理するクラス。
+    /// </summary>
     public class ResultManager : MonoBehaviour
     {
+        /// <summary>
+        /// ゲーム終了アクション（ボタン押下など）がトリガーされた時に発行されるイベント。
+        /// </summary>
         public event Action OnGameEndTriggered;
 
+        /// <summary>
+        /// プレイヤーの残りHPを基に勝敗を判定し、対応するUIを表示します。
+        /// </summary>
+        /// <param name="playerInitializer">プレイヤー情報を持つ初期化クラス</param>
         public void JudgeWinner(PlayerInitializer playerInitializer)
         {
             PlayerManager player1 = playerInitializer.Player1;
@@ -54,10 +64,25 @@ namespace TOYOTOU.Runtime
             }
         }
 
+        /// <summary>
+        /// プレイヤー1勝利時のUIを活性化します。
+        /// </summary>
         public void SetActivePlayer1UI() => _player1WinUI.ForEach(go => go.SetActive(true));
+
+        /// <summary>
+        /// プレイヤー2勝利時のUIを活性化します。
+        /// </summary>
         public void SetActivePlayer2UI() => _player2WinUI.ForEach(go => go.SetActive(true));
+
+        /// <summary>
+        /// 引き分け時のUIを活性化します。
+        /// </summary>
         public void SetActiveDrawUI() => _drawUI.ForEach(go => go.SetActive(true));
 
+        /// <summary>
+        /// ゲーム終了トリガーが引かれるまで待機する非同期タスク。
+        /// </summary>
+        /// <returns></returns>
         public async ValueTask WaitPressedGameEnd()
         {
             TaskCompletionSource<byte> task = new();
