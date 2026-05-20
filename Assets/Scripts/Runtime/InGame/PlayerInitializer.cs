@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace TOYOTOU.Runtime
 
             _player1Manager.Init(status1);
             _player2Manager.Init(status2);
+
+            _resolver.Init(_player1Manager, _player2Manager);
         }
 
         public void PlayerControlEnable()
@@ -28,7 +31,7 @@ namespace TOYOTOU.Runtime
         ///     プレイヤーのどちらかが倒されるまで終わらないタスク。
         /// </summary>
         /// <returns></returns>
-        public async ValueTask WaitAnyPlayerDead()
+        public async ValueTask WaitAnyPlayerDead(CancellationToken token = default)
         {
             TaskCompletionSource<byte> task = new();
 
@@ -43,12 +46,22 @@ namespace TOYOTOU.Runtime
             _player1Manager.OnDead += onDeadAction;
             _player2Manager.OnDead += onDeadAction;
 
-            await task.Task;
+
+            CancellationTokenRegistration registration = token.Register(task.SetCanceled);
+            try
+            {
+                await task.Task;
+            }
+            finally
+            {
+                registration.Dispose();
+            }
         }
 
         [SerializeField] private PlayerManager _player1Manager;
         [SerializeField] private PlayerManager _player2Manager;
         [SerializeField] private PlayerStatus _defaultPlayer1Status;
         [SerializeField] private PlayerStatus _defaultPlayer2Status;
+        [SerializeField] private ConflictResolver _resolver;
     }
 }
