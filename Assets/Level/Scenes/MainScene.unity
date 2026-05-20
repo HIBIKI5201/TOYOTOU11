@@ -779,6 +779,7 @@ MonoBehaviour:
   _playerInit: {fileID: 853229873}
   _timeline: {fileID: 676630304}
   _timer: {fileID: 533632911}
+  _result: {fileID: 1568504761}
 --- !u!1 &615077514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,10 +1151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9239ec68804d14693a41ca29be5945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player1Status: {fileID: 11400000, guid: 618ad2abc30ff5c4d846b2ce61210145, type: 2}
-  _player2Status: {fileID: 11400000, guid: 618ad2abc30ff5c4d846b2ce61210145, type: 2}
   _player1Manager: {fileID: 615077515}
   _player2Manager: {fileID: 734864406}
+  _defaultPlayer1Status: {fileID: 11400000, guid: 618ad2abc30ff5c4d846b2ce61210145, type: 2}
+  _defaultPlayer2Status: {fileID: 11400000, guid: b572d0d937df06c47a0a4c801e408a3c, type: 2}
 --- !u!114 &853229874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,6 +1467,17 @@ Transform:
   - {fileID: 481481455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568504761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5409567284774078321, guid: 5ea4eabad22037c4cbfcc9c7d9124af4, type: 3}
+  m_PrefabInstance: {fileID: 4850963367752182425}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d996ed7ee7de82a43a9107ee60cee3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4850963367752182425
 PrefabInstance:
   m_ObjectHideFlags: 0
