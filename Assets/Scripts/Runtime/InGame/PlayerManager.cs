@@ -3,6 +3,7 @@ using UnityEngine;
 namespace TOYOTOU.Runtime
 {
     /// <summary>
+    ///     インゲームのプレイヤー全体を管理するクラス。
     /// </summary>
     public class PlayerManager : MonoBehaviour
     {
@@ -80,16 +81,15 @@ namespace TOYOTOU.Runtime
                 PlayerManager PlayerRotation = collision.gameObject.GetComponent<PlayerManager>();
                 if (PlayerRotation != null)
                 {
-                    PlayerRotation.TakeDamage(_attackPower);
-                    Rigidbody otherRb = collision.gameObject.GetComponent<Rigidbody>();
-                    if (otherRb != null)
-                    {
-                        ContactPoint contact = collision.contacts[0];
-                        Vector3 pushDirection = contact.normal;
-                        GetComponent<Rigidbody>().AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
-                        otherRb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
+                    float power = _rb.linearVelocity.sqrMagnitude * _attackPower;
+                    PlayerRotation.TakeDamage(power);
 
-                    }
+                    if (!collision.gameObject.TryGetComponent(out Rigidbody otherRb)) { return; }
+
+                    ContactPoint contact = collision.contacts[0];
+                    Vector3 pushDirection = contact.normal;
+                    _rb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
+                    otherRb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
                 }
             }
         }
@@ -97,7 +97,15 @@ namespace TOYOTOU.Runtime
         private void Move()
         {
             _currentMoveVelocity += _addVelocity;
-            _rb.linearVelocity = new Vector3(_currentMoveVelocity.x, _rb.linearVelocity.y, _currentMoveVelocity.z);
+
+            float magnitude = _currentMoveVelocity.magnitude;
+            if (_maxSpeed < magnitude) // 最大速度を超えないようにする。
+            {
+                _currentMoveVelocity *= _maxSpeed / magnitude;
+            }
+
+            Vector3 velocity = new(_currentMoveVelocity.x, _rb.linearVelocity.y, _currentMoveVelocity.z);
+            _rb.linearVelocity = velocity;
         }
     }
 }
