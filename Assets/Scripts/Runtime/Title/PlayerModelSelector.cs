@@ -6,6 +6,12 @@ namespace TOYOTOU.Runtime
     {
         public PlayerModelController GetSelectedModel() => _characterModels[_index];
 
+        public void Next(float selector)
+        {
+            int dir = (int)Mathf.Sign(selector);
+            Change(_index + dir);
+        }
+
         public void Change(int index)
         {
             index = (index + _characterModels.Length) % _characterModels.Length;
@@ -16,17 +22,18 @@ namespace TOYOTOU.Runtime
             _index = index;
         }
 
-        [SerializeField] private PlayerStatus[] _stetuses;
+        [SerializeField] private DataRepository _repo;
         private PlayerModelController[] _characterModels;
 
         private int _index;
 
         private void Start()
         {
-            _characterModels = new PlayerModelController[_stetuses.Length];
-            for (int i = 0; i < _stetuses.Length; i++)
+            PlayerStatus[] statuses = _repo.States;
+            _characterModels = new PlayerModelController[statuses.Length];
+            for (int i = 0; i < statuses.Length; i++)
             {
-                PlayerModelController model = Instantiate(_stetuses[i].Model, transform);
+                PlayerModelController model = Instantiate(statuses[i].Model, transform);
                 DeactivateModel(model);
                 _characterModels[i] = model;
             }
