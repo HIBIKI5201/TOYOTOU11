@@ -969,7 +969,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783490186}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 09f89e6192d4aff4284bdc0f2e8aadbb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1269,8 +1269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9239ec68804d14693a41ca29be5945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player1Status: {fileID: 0}
-  _player2Status: {fileID: 0}
+  _player1Status: {fileID: 11400000, guid: 618ad2abc30ff5c4d846b2ce61210145, type: 2}
+  _player2Status: {fileID: 11400000, guid: 618ad2abc30ff5c4d846b2ce61210145, type: 2}
   _player1Manager: {fileID: 615077515}
   _player2Manager: {fileID: 734864406}
 --- !u!1 &1078949023
@@ -1458,7 +1458,7 @@ GameObject:
   - component: {fileID: 1383729626}
   - component: {fileID: 1383729625}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: InGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
