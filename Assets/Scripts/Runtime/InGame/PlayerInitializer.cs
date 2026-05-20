@@ -10,13 +10,17 @@ namespace TOYOTOU.Runtime
         public PlayerManager Player1 => _player1Manager;
         public PlayerManager Player2 => _player2Manager;
 
-        public void Init(PlayerStatus status1 = null, PlayerStatus status2 = null)
+        public void Init(GameManager gm)
         {
+            GameState state = gm.State;
+            PlayerStatus status1 = state.Player1Status;
+            PlayerStatus status2 = state.Player2Status;
+
             if (status1 == null) { status1 = _defaultPlayer1Status; }
             if (status2 == null) { status2 = _defaultPlayer2Status; }
 
-            _player1Manager.Init(status1);
-            _player2Manager.Init(status2);
+            _player1Manager.Init(status1, state.Player1Model);
+            _player2Manager.Init(status2, state.Player2Model);
 
             _resolver.Init(_player1Manager, _player2Manager);
         }
