@@ -1,4 +1,3 @@
-using Unity.Collections;
 using UnityEngine;
 
 namespace TOYOTOU.Runtime
@@ -14,7 +13,7 @@ namespace TOYOTOU.Runtime
         }
 
         public void ConflictHandler(PlayerManager alpha, PlayerManager beta)
-        {            
+        {
             float powerAlpha = alpha.PreviousVelocity * alpha.AttackPower;
             float powerBeta = beta.PreviousVelocity * beta.AttackPower;
             alpha.TakeDamage(powerBeta);

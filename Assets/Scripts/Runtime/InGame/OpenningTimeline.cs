@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Unity.Cinemachine;
-using Unity.Properties;
 using UnityEngine;
 using UnityEngine.Playables;
 
