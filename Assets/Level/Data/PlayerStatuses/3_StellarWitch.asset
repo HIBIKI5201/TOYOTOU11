@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a06a3b8d8d9ba142afe802786a402bf, type: 3}
-  m_Name: Dev_TestStatus_1
+  m_Name: 3_StellarWitch
   m_EditorClassIdentifier: 
+  _model: {fileID: 5091716742699877650, guid: 619f6f63125917840955a0780dc18ecc, type: 3}
   _maxHitPoint: 100
   _attackPower: 1.5
-  _bounceForce: 50
+  _bounceForce: 100
   _weight: 6
-  _maxSpeed: 10
+  _maxSpeed: 3
   _acceleration: 10
