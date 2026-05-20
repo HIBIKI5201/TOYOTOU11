@@ -1,4 +1,5 @@
 using SymphonyFrameWork.Attribute;
+using System;
 using UnityEngine;
 
 namespace TOYOTOU.Runtime
@@ -8,6 +9,12 @@ namespace TOYOTOU.Runtime
     /// </summary>
     public class PlayerManager : MonoBehaviour
     {
+        public event Action OnDead;
+        public event Action<PlayerManager, PlayerManager> OnConflicted;
+
+        public float AttackPower => _attackPower;
+        public float BounceForce => _bounceForce;
+
         /// <summary>
         ///     初期化する。
         /// </summary>
@@ -27,17 +34,18 @@ namespace TOYOTOU.Runtime
         /// <summary>
         ///     ダメージを受ける。
         /// </summary>
-        /// <param name="Attack"></param>
-        public void TakeDamage(float Attack)
+        /// <param name="damage"></param>
+        public void TakeDamage(float damage)
         {
-            _maxHitPoint -= Attack;
+            _maxHitPoint -= damage;
+            Debug.Log($"{name}が{damage}ダメージ食らった");
             if (_maxHitPoint < 0)
             {
-                Destroy(this);
+                OnDead?.Invoke();
+                Debug.Log($"{name}が死亡");
             }
         }
 
-        [SerializeField] private Vector3 _startSpeed;
         [SerializeField] private InputActionKeyConfig _keyConfig;
         [SerializeField, TagSelector] private string _playerTag;
 
@@ -50,7 +58,6 @@ namespace TOYOTOU.Runtime
 
         private Rigidbody _rb;
         private Vector3 _addVelocity;
-        private Vector3 _currentMoveVelocity;
 
         private void Awake()
         {
@@ -65,11 +72,6 @@ namespace TOYOTOU.Runtime
         private void OnDisable()
         {
             _keyConfig.Disable();
-        }
-
-        private void Start()
-        {
-            _currentMoveVelocity = new Vector3(_startSpeed.x, 0, _startSpeed.z);
         }
 
         private void Update()
@@ -91,33 +93,24 @@ namespace TOYOTOU.Runtime
         {
             if (collision.gameObject.CompareTag(_playerTag))
             {
-                PlayerManager PlayerRotation = collision.gameObject.GetComponent<PlayerManager>();
-                if (PlayerRotation != null)
-                {
-                    float power = _rb.linearVelocity.sqrMagnitude * _attackPower;
-                    PlayerRotation.TakeDamage(power);
-
-                    if (!collision.gameObject.TryGetComponent(out Rigidbody otherRb)) { return; }
-
-                    ContactPoint contact = collision.contacts[0];
-                    Vector3 pushDirection = contact.normal;
-                    _rb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
-                    otherRb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
-                }
+                PlayerManager other = collision.gameObject.GetComponent<PlayerManager>();
+                OnConflicted?.Invoke(this, other);
             }
         }
 
         private void Move(float delta)
         {
-            _currentMoveVelocity += _addVelocity * delta;
+            Vector3 velocity = _rb.linearVelocity;
+            float originY = velocity.y;
+            velocity += _addVelocity * delta;
 
-            float magnitude = _currentMoveVelocity.magnitude;
+            float magnitude = velocity.magnitude;
             if (_maxSpeed < magnitude) // 最大速度を超えないようにする。
             {
-                _currentMoveVelocity *= _maxSpeed / magnitude;
+                velocity *= _maxSpeed / magnitude;
             }
 
-            Vector3 velocity = new(_currentMoveVelocity.x, _rb.linearVelocity.y, _currentMoveVelocity.z);
+            velocity = new(velocity.x, originY, velocity.z);
             _rb.linearVelocity = velocity;
         }
     }
