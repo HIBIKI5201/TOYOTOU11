@@ -7,8 +7,8 @@ namespace TOYOTOU
     {
         public void SetParent(Transform parent)
         {
+            transform.DOMove(parent.position, 1).SetEase(Ease.Linear);
             transform.SetParent(parent);
-            transform.DOLocalMove(Vector3.zero, 1);
         }
     }
 }
