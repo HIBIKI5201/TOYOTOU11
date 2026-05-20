@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a06a3b8d8d9ba142afe802786a402bf, type: 3}
-  m_Name: Dev_TestStatus
+  m_Name: Dev_TestStatus_2
   m_EditorClassIdentifier: 
   _maxHitPoint: 100
   _attackPower: 1.5
-  _bounceForce: 10
+  _bounceForce: 50
   _weight: 6
-  _maxSpeed: 10
-  _acceleration: 100
+  _maxSpeed: 3
+  _acceleration: 10
