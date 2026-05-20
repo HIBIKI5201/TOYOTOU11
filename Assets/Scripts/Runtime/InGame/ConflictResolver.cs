@@ -6,22 +6,15 @@ namespace TOYOTOU.Runtime
     public class ConflictResolver : MonoBehaviour
     {
         public void ConflictHandler(PlayerManager alpha, PlayerManager beta)
-        {
-            Rigidbody rbA = alpha.GetComponent<Rigidbody>();
-            Rigidbody rbB = beta.GetComponent<Rigidbody>();
+        {            
+            float powerAlpha = alpha.PreviousVelocity * alpha.AttackPower;
+            float powerBeta = beta.PreviousVelocity * beta.AttackPower;
+            alpha.TakeDamage(powerBeta);
+            beta.TakeDamage(powerAlpha);
 
-
-            /*
-                    float power = collision.relativeVelocity.magnitude * _attackPower;
-                    OtherManager.TakeDamage(power);
-
-                    if (!collision.gameObject.TryGetComponent(out Rigidbody otherRb)) { return; }
-
-                    ContactPoint contact = collision.contacts[0];
-                    Vector3 pushDirection = contact.normal;
-                    _rb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
-                    otherRb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
-            */
+            Vector3 alpha2Beta = (beta.transform.position - alpha.transform.position).normalized;
+            ResolveRigidBody(alpha.Rigidbody, -alpha2Beta, alpha.BounceForce);
+            ResolveRigidBody(beta.Rigidbody, alpha2Beta, beta.BounceForce);
         }
 
         [SerializeField] private PlayerManager _player1;
@@ -30,6 +23,12 @@ namespace TOYOTOU.Runtime
         private void Start()
         {
             _player1.OnConflicted += ConflictHandler;
+        }
+
+        private void ResolveRigidBody(Rigidbody rb, Vector3 dir, float force)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.AddForce(dir * force, ForceMode.Impulse);
         }
     }
 }
