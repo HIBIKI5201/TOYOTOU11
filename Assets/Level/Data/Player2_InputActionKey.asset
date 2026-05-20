@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18d511071a536240be8300ab0d8f8c0, type: 3}
+  m_Name: Player2_InputActionKey
+  m_EditorClassIdentifier: 
+  _moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: 03e05118-ff49-428a-8277-fe42863e7337
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 2d180f60-0651-400b-924e-de76ea7a7058
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 0e1ec33c-a8ee-4acc-b010-2f1335bb09be
+      m_Path: <Keyboard>/i
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 7b25436c-e9cc-42fb-92bb-444857054226
+      m_Path: <Keyboard>/k
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 5777736d-0e79-41c4-9ae1-b8d685f21882
+      m_Path: <Keyboard>/j
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: a4457d9d-0b09-4b1f-936b-cb63ae5e471f
+      m_Path: <Keyboard>/l
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
+  _skill1Action:
+    m_Name: Skill 1
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5a03bec6-d9de-4f38-9dbd-9d17b88c7253
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 55e79bdd-0f1b-46fe-af59-09dca86d2495
+      m_Path: <Keyboard>/u
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Skill 1
+      m_Flags: 0
+    m_Flags: 0
+  _skill2Action:
+    m_Name: Skill 2
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 03843c19-c58f-4572-9b9e-3426488e7769
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f72488e4-2c24-41ce-bb11-93935246f8f1
+      m_Path: <Keyboard>/o
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Skill 2
+      m_Flags: 0
+    m_Flags: 0
