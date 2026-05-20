@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace TOYOTOU.Runtime
 {
+    [CreateAssetMenu(fileName = nameof(PlayerStatus), menuName = nameof(PlayerStatus))]
     public class PlayerStatus : ScriptableObject
     {
         public float MaxHitPoint => _maxHitPoint;
