@@ -46,9 +46,8 @@ namespace TOYOTOU.Runtime
 
         private void ResolveRigidBody(Rigidbody rb, Vector3 dir, float force)
         {
-            dir.y = _hitJump;
             rb.linearVelocity = Vector3.zero;
-            rb.AddForce(dir * force, ForceMode.Impulse);
+            rb.AddForce(dir * force + Vector3.up * _hitJump, ForceMode.Impulse);
         }
     }
 }
