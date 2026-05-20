@@ -1,60 +1,40 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 namespace TOYOTOU.Runtime
 {
     /// <summary>
     ///     オープニング演出を管理するクラス。
     /// </summary>
+    [RequireComponent(typeof(PlayableDirector))]
     public class OpenningTimeline : MonoBehaviour
     {
         public async ValueTask Play()
         {
+            _director.Play();
 
+            try
+            {
+                await Awaitable.WaitForSecondsAsync((float)_director.duration, destroyCancellationToken);
+            }
+            catch(OperationCanceledException) { }
         }
-
-        private float readytime = 2f;
 
         [Header("Text")]
-        public GameObject ready;
-        public GameObject Gosign;
-        public GameObject timer;
-        public GameObject winner;
-        public GameObject title;
+        [SerializeField] private GameObject _ready;
+        [SerializeField] private GameObject _gosign;
 
-        [Header("Other")]
-        bool start = false;
+        private PlayableDirector _director;
 
-        void Start()
+        private void Awake()
         {
-            ready.SetActive(false);
-            Gosign.SetActive(false);
-            readytime = 2f;
-        }
+            _director = GetComponent<PlayableDirector>();
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Keyboard.current.fKey.wasPressedThisFrame)
-            {
-                start = !start;
-                title.SetActive(false);
-            }
-
-            if (winner != null && start)
-            {
-                ready.SetActive(true);
-                readytime -= Time.deltaTime;
-
-                if (readytime <= 0)
-                {
-                    // 不正な代入を修正（戻り値に代入できない）
-                    readytime = 0;
-                    ready.SetActive(false);
-                    Gosign.SetActive(true);
-                }
-            }
+            _ready.SetActive(false);
+            _gosign.SetActive(false);
         }
     }
 }
