@@ -13,8 +13,13 @@ namespace TOYOTOU.Runtime
             beta.TakeDamage(powerAlpha);
 
             Vector3 alpha2Beta = (beta.transform.position - alpha.transform.position).normalized;
+            alpha2Beta.y = 0;
+            alpha2Beta.Normalize();
+
             ResolveRigidBody(alpha.Rigidbody, -alpha2Beta, alpha.BounceForce);
             ResolveRigidBody(beta.Rigidbody, alpha2Beta, beta.BounceForce);
+
+            Debug.Log(alpha2Beta);
         }
 
         [SerializeField] private PlayerManager _player1;
