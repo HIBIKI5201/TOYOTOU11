@@ -39,7 +39,6 @@ namespace TOYOTOU.Runtime
         }
 
         [SerializeField] private float _hitStopTime = 0.2f;
-        [SerializeField] private float _hitJump = 5;
 
         private PlayerManager _player1;
         private PlayerManager _player2;
@@ -47,7 +46,7 @@ namespace TOYOTOU.Runtime
         private void ResolveRigidBody(Rigidbody rb, Vector3 dir, float force)
         {
             rb.linearVelocity = Vector3.zero;
-            rb.AddForce(dir * force + Vector3.up * _hitJump, ForceMode.Impulse);
+            rb.AddForce(dir * force, ForceMode.Impulse);
         }
     }
 }
