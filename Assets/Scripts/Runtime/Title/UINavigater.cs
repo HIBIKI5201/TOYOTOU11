@@ -25,9 +25,9 @@ namespace TOYOTOU.Runtime
         public void Disable()
         {
             InputActionKeyConfig key = _key;
-            key.MoveAction.started += MoveHandler;
-            key.Skill1Action.started += SkillHandler;
-            key.Skill2Action.started += SkillHandler;
+            key.MoveAction.started -= MoveHandler;
+            key.Skill1Action.started -= SkillHandler;
+            key.Skill2Action.started -= SkillHandler;
         }
 
         [SerializeField] private PlayerModelSelector _playerSelector;
