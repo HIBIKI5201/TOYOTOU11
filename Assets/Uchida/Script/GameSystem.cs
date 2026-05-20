@@ -8,11 +8,9 @@ using UnityEngine.InputSystem;
 
 public class GameSystem : MonoBehaviour
 {
-    [Header("System")]
-    public float BattleTimer = 30;
-    private float readytime = 2f;
 
-    [Header("Text")]
+
+[Header("Text")]
     public GameObject ready;
     public GameObject Gosign;
     public GameObject timer;
@@ -22,6 +20,10 @@ public class GameSystem : MonoBehaviour
     [Header("Other")]
     bool start = false;
 
+    [Header("audio")]
+    public AudioSource gamewin;
+    public AudioSource fancall;
+    public AudioSource battlemusic;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
@@ -31,10 +33,7 @@ public class GameSystem : MonoBehaviour
         winner.SetActive(false);
         ready.SetActive(false);
         Gosign.SetActive(false);
-        title.SetActive(true);
-        BattleTimer = 30f;
-        readytime = 2f;
-        
+        title.SetActive(true); 
     }
 
     // Update is called once per frame
@@ -44,6 +43,8 @@ public class GameSystem : MonoBehaviour
         {
             start = true;
             title.SetActive(false);
+            battlemusic.loop = true;
+            battlemusic.Play();
             StartCoroutine(BattleFlow());
         }
     }
@@ -59,19 +60,20 @@ public class GameSystem : MonoBehaviour
         Gosign.SetActive(false);
 
         float time = 30f;
-        while (time > 0)
-        {
+
             time -= Time.deltaTime;
             yield return null;
-        }
-
+        
+        if(time < 0f)
         Finish();
     }
 
 void Finish()
         {
             Debug.Log("time up");
+            gamewin.Play();
             winner.SetActive(true);
+            fancall.Play();
 
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
