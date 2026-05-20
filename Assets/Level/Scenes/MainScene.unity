@@ -5725,7 +5725,7 @@ PrefabInstance:
     - target: {fileID: 3712251930515038833, guid: 5ea4eabad22037c4cbfcc9c7d9124af4, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 481475152}
     - target: {fileID: 4496749177761093548, guid: 5ea4eabad22037c4cbfcc9c7d9124af4, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
