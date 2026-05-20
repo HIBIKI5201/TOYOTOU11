@@ -1,6 +1,7 @@
 using SymphonyFrameWork.Attribute;
 using System;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace TOYOTOU.Runtime
 {
@@ -12,6 +13,8 @@ namespace TOYOTOU.Runtime
         public event Action OnDead;
         public event Action<PlayerManager, PlayerManager> OnConflicted;
 
+        public Rigidbody Rigidbody => _rb;
+        public float PreviousVelocity => _previousVelocity;
         public float AttackPower => _attackPower;
         public float BounceForce => _bounceForce;
 
@@ -58,6 +61,7 @@ namespace TOYOTOU.Runtime
 
         private Rigidbody _rb;
         private Vector3 _addVelocity;
+        private float _previousVelocity;
 
         private void Awake()
         {
@@ -105,10 +109,13 @@ namespace TOYOTOU.Runtime
             velocity += _addVelocity * delta;
 
             float magnitude = velocity.magnitude;
+            magnitude = Mathf.Abs(magnitude) < 0.0001f ? 0 : magnitude; //ほぼ0なら0にする。
             if (_maxSpeed < magnitude) // 最大速度を超えないようにする。
             {
                 velocity *= _maxSpeed / magnitude;
+                magnitude = _maxSpeed;
             }
+            _previousVelocity = magnitude; // 最後の速度を記録する。
 
             velocity = new(velocity.x, originY, velocity.z);
             _rb.linearVelocity = velocity;
