@@ -1,18 +1,36 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace TOYOTOU.Runtime
 {
+    /// <summary>
+    /// </summary>
     public class PlayerManager : MonoBehaviour
     {
+        /// <summary>
+        ///     初期化する。
+        /// </summary>
+        /// <param name="playerStatus"></param>
         public void Init(PlayerStatus playerStatus)
         {
             _maxHitPoint = playerStatus.MaxHitPoint;
             _attackPower = playerStatus.AttackPower;
             _bounceForce = playerStatus.BounceForce;
             _weight = playerStatus.Weight;
-            _maxSpeed = new Vector3(playerStatus.MaxSpeed, 0, playerStatus.MaxSpeed);
+            _maxSpeed = playerStatus.MaxSpeed;
             _acceleration = playerStatus.Acceleration;
+        }
+
+        /// <summary>
+        ///     ダメージを受ける。
+        /// </summary>
+        /// <param name="Attack"></param>
+        public void TakeDamage(float Attack)
+        {
+            _maxHitPoint -= Attack;
+            if (_maxHitPoint < 0)
+            {
+                Destroy(this);
+            }
         }
 
         private float _maxHitPoint;
@@ -20,9 +38,10 @@ namespace TOYOTOU.Runtime
         private float _bounceForce;
         private float _weight;
         private float _acceleration = 0.5f;
-        private Vector3 _maxSpeed;
+        private float _maxSpeed;
 
         [SerializeField] private Vector3 _startSpeed;
+        [SerializeField] private InputActionKeyConfig _keyConfig;
 
         private Rigidbody _rb;
         private Vector3 _moveDirection;
@@ -41,37 +60,10 @@ namespace TOYOTOU.Runtime
 
         private void Update()
         {
-            float x = 0;
-            float z = 0;
+            if (_keyConfig == null) { return; }
 
-            Keyboard keyboard = Keyboard.current;
-
-            if (keyboard == null) return;
-
-            var wKey = keyboard.wKey;
-            var aKey = keyboard.aKey;
-            var dKey = keyboard.dKey;
-            var sKey = keyboard.sKey;
-
-            if (wKey.IsPressed())// 前s
-            {
-                x = 1;
-            }
-            else if (sKey.IsPressed()) // 後ろ
-            {
-                x = -1;
-            }
-
-            if (dKey.IsPressed())// 右
-            {
-                z = 1;
-            }
-            else if (aKey.IsPressed())// 左
-            {
-                z = -1;
-            }
-
-            _moveDirection = new Vector3(x, 0, z);
+            Vector2 input = _keyConfig.GetMoveValue();
+            _moveDirection = new Vector3(input.x, 0, input.y);
             _addVelocity = _moveDirection * _acceleration;
         }
 
@@ -99,15 +91,6 @@ namespace TOYOTOU.Runtime
 
                     }
                 }
-            }
-        }
-
-        public void TakeDamage(float Attack)
-        {
-            _maxHitPoint -= Attack;
-            if (_maxHitPoint < 0)
-            {
-                Destroy(this);
             }
         }
 
