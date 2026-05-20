@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TOYOTOU.Runtime
 {
     public class ConflictResolver : MonoBehaviour
     {
+        public UnityEvent OnConflicted;
+
         public void Init(PlayerManager player1, PlayerManager player2)
         {
             _player1 = player1;
@@ -26,7 +29,7 @@ namespace TOYOTOU.Runtime
             ResolveRigidBody(alpha.Rigidbody, -alpha2Beta, alpha.BounceForce);
             ResolveRigidBody(beta.Rigidbody, alpha2Beta, beta.BounceForce);
 
-            Debug.Log(alpha2Beta);
+            OnConflicted?.Invoke();
         }
 
         private PlayerManager _player1;
