@@ -17,6 +17,7 @@ namespace TOYOTOU.Runtime
         public float PreviousVelocity => _previousVelocity;
         public float AttackPower => _attackPower;
         public float BounceForce => _bounceForce;
+        public float RemainHitPoint => _remainHitPoint;
 
         /// <summary>
         ///     初期化する。
@@ -31,6 +32,7 @@ namespace TOYOTOU.Runtime
             _maxSpeed = playerStatus.MaxSpeed;
             _acceleration = playerStatus.Acceleration;
 
+            _remainHitPoint = _maxHitPoint;
             _rb.mass = _weight;
         }
 
@@ -46,9 +48,9 @@ namespace TOYOTOU.Runtime
         /// <param name="damage"></param>
         public void TakeDamage(float damage)
         {
-            _maxHitPoint -= damage;
+            _remainHitPoint -= damage;
             Debug.Log($"{name}が{damage}ダメージ食らった");
-            if (_maxHitPoint < 0)
+            if (_remainHitPoint < 0)
             {
                 OnDead?.Invoke();
                 Debug.Log($"{name}が死亡");
@@ -59,6 +61,7 @@ namespace TOYOTOU.Runtime
         [SerializeField, TagSelector] private string _playerTag;
 
         private float _maxHitPoint;
+        private float _remainHitPoint;
         private float _attackPower;
         private float _bounceForce;
         private float _weight;
