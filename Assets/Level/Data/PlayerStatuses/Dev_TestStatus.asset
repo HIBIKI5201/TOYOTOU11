@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a06a3b8d8d9ba142afe802786a402bf, type: 3}
   m_Name: Dev_TestStatus
   m_EditorClassIdentifier: 
-  _maxHitPoint: 10
-  _attackPower: 10
+  _maxHitPoint: 100
+  _attackPower: 1.5
   _bounceForce: 10
-  _weight: 1
+  _weight: 6
   _maxSpeed: 10
   _acceleration: 100
