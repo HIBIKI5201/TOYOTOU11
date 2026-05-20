@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 namespace TOYOTOU.Runtime
 {
@@ -9,6 +10,20 @@ namespace TOYOTOU.Runtime
         public InputAction MoveAction => _moveAction;
         public InputAction Skill1Action => _skill1Action;
         public InputAction Skill2Action => _skill2Action;
+
+        public void Enable()
+        {
+            _moveAction.Enable();
+            _skill1Action.Enable();
+            _skill2Action.Enable();
+        }
+
+        public void Disable()
+        {
+            _moveAction.Disable();
+            _skill1Action.Disable();
+            _skill2Action.Disable();
+        }
 
         public Vector2 GetMoveValue() => _moveAction.ReadValue<Vector2>();
         public bool IsTriggerdSkill1() => _skill1Action.triggered;
@@ -21,20 +36,6 @@ namespace TOYOTOU.Runtime
         private void OnValidate()
         {
             Debug.Assert(_moveAction.expectedControlType == "Vector2", "MoveActionはVector2である必要があります。", this);
-        }
-
-        private void OnEnable()
-        {
-            _moveAction.Enable();
-            _skill1Action.Enable();
-            _skill2Action.Enable();
-        }
-
-        private void OnDisable()
-        {
-            _moveAction.Disable();
-            _skill1Action.Disable();
-            _skill2Action.Disable();
         }
     }
 }
