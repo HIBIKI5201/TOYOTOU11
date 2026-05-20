@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameSystem : MonoBehaviour
 {
     [Header("System")]
-    public float time = 1f;
+    public float floattime = 1f;
     public float BattleTimer = 30;
 
     [Header("Other")]
@@ -22,13 +22,16 @@ public class GameSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BattleTimer -= floattime * Time.deltaTime;
+
         if (timer != null)
         {
-            BattleTimer -= time * Time.deltaTime;
+            BattleTimer -= floattime * Time.deltaTime;
             Debug.Log("timer起動中");
         }
-          if(BattleTimer >= 0f)
+          if(BattleTimer <= 0f)
         {
+            
             Finish();
         }
     }
