@@ -3,17 +3,24 @@ using UnityEngine.InputSystem;
 
 namespace TOYOTOU.Runtime
 {
-    public class PlayerMoving : MonoBehaviour
+    public class PlayerManager : MonoBehaviour
     {
-        [SerializeField] public int Hitpoint = 10;
-        [SerializeField] public int Attack = 10;
-        [SerializeField] public float bounceForce = 10f;
+        public void Init(PlayerStatus playerStatus)
+        {
+            _maxHitPoint = playerStatus.MaxHitPoint;
+            _attackPower = playerStatus.AttackPower;
+            _bounceForce = playerStatus.BounceForce;
+            _weight = playerStatus.Weight;
+            _maxSpeed = new Vector3(playerStatus.MaxSpeed, 0, playerStatus.MaxSpeed);
+            _acceleration = playerStatus.Acceleration;
+        }
 
-        [Header("加速力")]
-        [SerializeField] private float _addSpeed = 0.5f;
-
-        [Header("最大速度")]
-        [SerializeField, Tooltip("最大速度")] private Vector3 _maxSpeed;
+        private float _maxHitPoint;
+        private float _attackPower;
+        private float _bounceForce;
+        private float _weight;
+        private float _acceleration = 0.5f;
+        private Vector3 _maxSpeed;
 
         [SerializeField] private Vector3 _startSpeed;
 
@@ -21,8 +28,6 @@ namespace TOYOTOU.Runtime
         private Vector3 _moveDirection;
         private Vector3 _addVelocity;
         private Vector3 _currentMoveVelocity;
-
-        public GameObject Bey;
 
         private void Awake()
         {
@@ -67,7 +72,7 @@ namespace TOYOTOU.Runtime
             }
 
             _moveDirection = new Vector3(x, 0, z);
-            _addVelocity = _moveDirection * _addSpeed;
+            _addVelocity = _moveDirection * _acceleration;
         }
 
         private void FixedUpdate()
@@ -80,27 +85,27 @@ namespace TOYOTOU.Runtime
         {
             if (gameObject.CompareTag("Player"))
             {
-                PlayerMoving PlayerRotation = collision.gameObject.GetComponent<PlayerMoving>();
+                PlayerManager PlayerRotation = collision.gameObject.GetComponent<PlayerManager>();
                 if (PlayerRotation != null)
                 {
-                    PlayerRotation.TakeDamage(Attack);
+                    PlayerRotation.TakeDamage(_attackPower);
                     Rigidbody otherRb = collision.gameObject.GetComponent<Rigidbody>();
                     if (otherRb != null)
                     {
                         ContactPoint contact = collision.contacts[0];
                         Vector3 pushDirection = contact.normal;
-                        GetComponent<Rigidbody>().AddForce(pushDirection * bounceForce, ForceMode.Impulse);
-                        otherRb.AddForce(pushDirection * bounceForce, ForceMode.Impulse);
+                        GetComponent<Rigidbody>().AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
+                        otherRb.AddForce(pushDirection * _bounceForce, ForceMode.Impulse);
 
                     }
                 }
             }
         }
 
-        public void TakeDamage(int Attack)
+        public void TakeDamage(float Attack)
         {
-            Hitpoint -= Attack;
-            if (Hitpoint < 0)
+            _maxHitPoint -= Attack;
+            if (_maxHitPoint < 0)
             {
                 Destroy(this);
             }
