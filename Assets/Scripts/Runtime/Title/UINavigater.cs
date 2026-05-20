@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.WSA;
 
 namespace TOYOTOU.Runtime
 {
@@ -15,7 +14,7 @@ namespace TOYOTOU.Runtime
             key.Skill1Action.started += SkillHandler;
             key.Skill2Action.started += SkillHandler;
 
-            _selectArrows = new (_playerArrowLeft, _playerArrowRight,
+            _selectArrows = new(_playerArrowLeft, _playerArrowRight,
                 _skill1ArrowLeft, _skill1ArrowRight,
                 _skill2ArrowLeft, _skill2ArrowRight);
             _selectArrows.AllDeactive();
