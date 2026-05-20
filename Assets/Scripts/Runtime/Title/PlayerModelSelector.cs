@@ -5,6 +5,7 @@ namespace TOYOTOU.Runtime
     public class PlayerModelSelector : MonoBehaviour
     {
         public PlayerModelController GetSelectedModel() => _characterModels[_index];
+        public int Index => _index;
 
         public void Next(float selector)
         {
