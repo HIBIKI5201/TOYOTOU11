@@ -14,8 +14,7 @@ namespace TOYOTOU.Runtime
         public void SetSpeed(float value) => _speed = value;
 
         [SerializeField] private Vector3 _rotateDirection = new Vector3(0, 1, 0);
-
-        private float _speed = 10f;
+        [SerializeField] private float _speed = 10f;
 
         private void Start()
         {
