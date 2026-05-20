@@ -10,7 +10,7 @@ namespace TOYOTOU.Runtime
         {
             try
             {
-                _playerInit.Init();
+                _playerInit.Init(_gm);
 
                 await _timeline.Play();
                 _timer.StartTimer();
@@ -24,6 +24,7 @@ namespace TOYOTOU.Runtime
             catch (OperationCanceledException) { }
         }
 
+        [SerializeField] private GameManager _gm;
         [SerializeField] private PlayerInitializer _playerInit;
         [SerializeField] private OpenningTimeline _timeline;
         [SerializeField] private InGameTimer _timer;
