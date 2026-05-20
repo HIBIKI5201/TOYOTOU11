@@ -22,8 +22,9 @@ namespace TOYOTOU.Runtime
         ///     初期化する。
         /// </summary>
         /// <param name="playerStatus"></param>
-        public void Init(PlayerStatus playerStatus)
+        public void Init(PlayerStatus playerStatus, PlayerModelController model)
         {
+            _model = model;
             _maxHitPoint = playerStatus.MaxHitPoint;
             _attackPower = playerStatus.AttackPower;
             _bounceForce = playerStatus.BounceForce;
@@ -82,6 +83,7 @@ namespace TOYOTOU.Runtime
         private float _acceleration = 0.5f;
         private float _maxSpeed;
 
+        private PlayerModelController _model;
         private Rigidbody _rb;
         private bool _canControl;
         private Vector3 _addVelocity;
