@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace TOYOTOU.Runtime
@@ -8,8 +9,11 @@ namespace TOYOTOU.Runtime
     /// </summary>
     public class OpenningTimeline : MonoBehaviour
     {
-        [Header("System")]
-        public float BattleTimer = 30;
+        public async ValueTask Play()
+        {
+
+        }
+
         private float readytime = 2f;
 
         [Header("Text")]
@@ -24,11 +28,8 @@ namespace TOYOTOU.Runtime
 
         void Start()
         {
-            winner.SetActive(false);
             ready.SetActive(false);
             Gosign.SetActive(false);
-            title.SetActive(true);
-            BattleTimer = 30f;
             readytime = 2f;
         }
 
@@ -43,7 +44,6 @@ namespace TOYOTOU.Runtime
 
             if (winner != null && start)
             {
-                // timer.SetActive(true);
                 ready.SetActive(true);
                 readytime -= Time.deltaTime;
 
@@ -53,30 +53,6 @@ namespace TOYOTOU.Runtime
                     readytime = 0;
                     ready.SetActive(false);
                     Gosign.SetActive(true);
-
-
-                    if (BattleTimer <= 29)
-                        Gosign.SetActive(false);
-
-                    BattleTimer -= Time.deltaTime;
-
-                    if (BattleTimer <= 0f)
-                    {
-                        BattleTimer = 0;
-                        Finish();
-                    }
-                }
-            }
-
-            void Finish()
-            {
-                Debug.Log("time up");
-                winner.SetActive(true);
-
-                if (Keyboard.current.spaceKey.wasPressedThisFrame)
-                {
-                    start = !start;
-                    Start();
                 }
             }
         }
