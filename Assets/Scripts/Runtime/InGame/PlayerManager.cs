@@ -35,6 +35,12 @@ namespace TOYOTOU.Runtime
         }
 
         /// <summary>
+        ///     操作可能状態を変更する。
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetCanControl(bool value) => _canControl = value;
+
+        /// <summary>
         ///     ダメージを受ける。
         /// </summary>
         /// <param name="damage"></param>
@@ -62,6 +68,7 @@ namespace TOYOTOU.Runtime
         private Rigidbody _rb;
         private Vector3 _addVelocity;
         private float _previousVelocity;
+        private bool _canControl;
 
         private void Awake()
         {
@@ -80,6 +87,7 @@ namespace TOYOTOU.Runtime
 
         private void Update()
         {
+            if (!_canControl) { return; }
             if (_keyConfig == null) { return; }
 
             Vector2 input = _keyConfig.GetMoveValue();
