@@ -1,7 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace TOYOTOU
+namespace TOYOTOU.Runtime
 {
     public class PlayerModelSelector : MonoBehaviour
     {
@@ -15,15 +14,16 @@ namespace TOYOTOU
             _index = index;
         }
 
-        [SerializeField] CharacterModelController[] _characterModels;
+        [SerializeField] private PlayerStatus[] _stetuses;
+        private CharacterModelController[] _characterModels;
 
         private int _index;
 
         private void Start()
         {
-            for (int i = 0; i < _characterModels.Length; i++)
+            for (int i = 0; i < _stetuses.Length; i++)
             {
-                CharacterModelController model = Instantiate(_characterModels[i], transform);
+                CharacterModelController model = Instantiate(_stetuses[i].Model, transform);
                 DeactivateModel(model);
                 _characterModels[i] = model;
             }
