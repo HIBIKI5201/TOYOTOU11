@@ -72,6 +72,7 @@ namespace TOYOTOU.Runtime
 
             _skill1 = skill1;
             _skill2 = skill2;
+
             model.SetParent(_rotater.transform);
         }
 
