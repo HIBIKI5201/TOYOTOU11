@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 namespace TOYOTOU.Runtime
@@ -48,6 +49,7 @@ namespace TOYOTOU.Runtime
         }
 
         [SerializeField, Tooltip("タイムリミット(秒)")] private float _timeLimit = 30f;
+        [SerializeField, Tooltip("タイマーテキスト")] private TMP_Text _text;
 
         private float _remainTime = 0f;
         private bool _isTimeUp = true;
@@ -62,6 +64,7 @@ namespace TOYOTOU.Runtime
                 OnTimeUp?.Invoke();
                 _isTimeUp = true;
             }
+            _text.text = _remainTime.ToString("00.0");
         }
     }
 }
