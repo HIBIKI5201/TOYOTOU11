@@ -1,6 +1,4 @@
 using TMPro;
-using TOYOTOU.Runtime;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,25 +39,25 @@ namespace TOYOTOU.Runtime
             index = (index + _skillBases.Length) % _skillBases.Length;
 
             SkillBase model = _skillBases[index];
-            ActivateModel(model);
+            ApplyUI(model);
             _index = index;
         }
 
         [SerializeField] private SkillDataRepository _repo;
-        [SerializeField] TMP_Text _text;
-        [SerializeField] Image _image;
+        [SerializeField] private TMP_Text _text;
+        [SerializeField] private Image _image;
+        [SerializeField] private int _index;
 
         private SkillBase[] _skillBases;
-        private int _index;
 
         private void Start()
         {
             _skillBases = new SkillBase[] { _repo.Skill1, _repo.Skill2, _repo.Skill3, _repo.Skill4 };
 
-            ActivateModel(_skillBases[0]);
+            ApplyUI(_skillBases[_index]);
         }
 
-        private void ActivateModel(SkillBase skill)
+        private void ApplyUI(SkillBase skill)
         {
             _text.text = skill.Explaion;
             _image.sprite = skill.Icon;

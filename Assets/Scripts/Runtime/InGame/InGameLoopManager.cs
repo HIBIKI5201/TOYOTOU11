@@ -18,6 +18,7 @@ namespace TOYOTOU.Runtime
             {
                 _playerInit.Init(_gm);
                 _uiManager.Init();
+                _music.PlayBGM(_ingameBGM);
 
                 await _timeline.Play();
                 _uiManager.Visible();
@@ -28,6 +29,7 @@ namespace TOYOTOU.Runtime
                 Task playerTask = _playerInit.WaitAnyPlayerDead(destroyCancellationToken).AsTask();
                 await Task.WhenAny(timerTask, playerTask);
                 _result.JudgeWinner(_playerInit);
+                _music.PlayBGM(_resultBGM);
 
                 await Awaitable.WaitForSecondsAsync(5, destroyCancellationToken);
                 _gm.GameReset();
@@ -41,5 +43,8 @@ namespace TOYOTOU.Runtime
         [SerializeField] private InGameTimer _timer;
         [SerializeField] private ResultManager _result;
         [SerializeField] private InGameUIManager _uiManager;
+        [SerializeField] private MusicManager _music;
+        [SerializeField] private AudioClip _ingameBGM;
+        [SerializeField] private AudioClip _resultBGM;
     }
 }

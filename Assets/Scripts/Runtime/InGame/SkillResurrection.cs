@@ -8,7 +8,7 @@ namespace TOYOTOU.Runtime
         {
             self.transform.position = _position;
             self.Rigidbody.linearVelocity *= _damping;
-            Object.Instantiate(_particle, _position, Quaternion.identity);
+            if (_particle) { Object.Instantiate(_particle, _position, Quaternion.identity); }
         }
 
         [SerializeField,Tooltip("ワープ位置")]

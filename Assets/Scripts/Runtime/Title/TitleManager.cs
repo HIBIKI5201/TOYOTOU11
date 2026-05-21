@@ -15,6 +15,9 @@ namespace TOYOTOU.Runtime
         [SerializeField] private DataRepository _dataRepository;
         [Tooltip("ゲーム開始時の演出シーケンスを管理するコンポーネント")]
         [SerializeField] private GameStartSequence _sequence;
+        [SerializeField] private MusicManager _music;
+
+        [SerializeField] private AudioClip _titleBGM;
 
         [Tooltip("プレイヤー1の入力アクション設定")]
         [SerializeField] private InputActionKeyConfig _player1;
@@ -62,6 +65,7 @@ namespace TOYOTOU.Runtime
             _player1Navigater.Enable(_player1);
             _player2Navigater.Enable(_player2);
             _sequence.OnSequencePlayed += GameStart;
+            _music.PlayBGM(_titleBGM);
         }
 
         private void OnDisable()

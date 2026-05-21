@@ -1,3 +1,6 @@
+using System.Text;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 namespace TOYOTOU.Runtime
@@ -38,12 +41,14 @@ namespace TOYOTOU.Runtime
 
             PlayerModelController model = _characterModels[index];
             ActivateModel(model);
+            UpdateText(_repo.States[index]);
             DeactivateModel(_characterModels[_index]);
             _index = index;
         }
 
         [Tooltip("プレイヤーのステータスデータを参照するためのリポジトリ")]
         [SerializeField] private DataRepository _repo;
+        [SerializeField] private TMP_Text _text;
         private PlayerModelController[] _characterModels;
 
         private int _index;
@@ -60,6 +65,7 @@ namespace TOYOTOU.Runtime
             }
 
             ActivateModel(_characterModels[0]);
+            UpdateText(_repo.States[0]);
         }
 
         private void ActivateModel(PlayerModelController model)
@@ -70,6 +76,17 @@ namespace TOYOTOU.Runtime
         private void DeactivateModel(PlayerModelController model)
         {
             model.gameObject.SetActive(false);
+        }
+
+        private void UpdateText(PlayerStatus status)
+        {
+            StringBuilder sb = new();
+            sb.AppendLine($"体力:{status.MaxHitPoint}");
+            sb.AppendLine($"攻撃:{status.AttackPower}");
+            sb.AppendLine($"最速:{status.MaxSpeed}");
+            sb.AppendLine($"加速:{status.Acceleration}");
+            sb.AppendLine($"反射:{status.BounceForce}");
+            _text.text = sb.ToString();
         }
     }
 }
