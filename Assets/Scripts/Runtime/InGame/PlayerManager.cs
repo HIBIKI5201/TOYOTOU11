@@ -70,6 +70,9 @@ namespace TOYOTOU.Runtime
         /// </summary>
         public float RemainHitPoint => _remainHitPoint;
 
+        public SkillBase Skill1 => _skill1;
+        public SkillBase Skill2 => _skill2;
+
         /// <summary>
         /// プレイヤーを初期化します
         /// </summary>
