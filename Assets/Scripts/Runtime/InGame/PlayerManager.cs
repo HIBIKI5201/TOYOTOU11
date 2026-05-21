@@ -20,6 +20,14 @@ namespace TOYOTOU.Runtime
         public event Action<PlayerManager, PlayerManager> OnConflicted;
 
         /// <summary>
+        /// プレイヤーの体力が変化した時に通知されるイベント
+        /// 第一引数が現在値、第二引数が最大値
+        /// </summary>
+        public event Action<float, float> OnHitPointChanged;
+
+        public event Action<float, float> OnSpeedChanged;
+
+        /// <summary>
         /// 物理演算用のRigidbodyを取得します
         /// </summary>
         public Rigidbody Rigidbody => _rb;
@@ -49,7 +57,7 @@ namespace TOYOTOU.Runtime
         /// </summary>
         /// <param name="playerStatus">プレイヤーの基本ステータス</param>
         /// <param name="model">プレイヤーの表示モデル制御</param>
-        public void Init(PlayerStatus playerStatus, PlayerModelController model)
+        public void Init(PlayerStatus playerStatus, PlayerModelController model, SkillBase skill1, SkillBase skill2)
         {
             _model = model;
             _maxHitPoint = playerStatus.MaxHitPoint;
@@ -62,6 +70,8 @@ namespace TOYOTOU.Runtime
             _remainHitPoint = _maxHitPoint;
             _rb.mass = _weight;
 
+            _skill1 = skill1;
+            _skill2 = skill2;
             model.SetParent(_rotater.transform);
         }
 
@@ -98,6 +108,7 @@ namespace TOYOTOU.Runtime
         public void TakeDamage(float damage)
         {
             _remainHitPoint -= damage;
+            OnHitPointChanged?.Invoke(_remainHitPoint, _maxHitPoint);
             Debug.Log($"{name}が{damage}ダメージ食らった");
             if (_remainHitPoint < 0)
             {
@@ -127,6 +138,8 @@ namespace TOYOTOU.Runtime
         private Vector3 _addVelocity;
         private float _previousVelocity;
         private Vector3 _preSleepVelocity;
+        private SkillBase _skill1;
+        private SkillBase _skill2;
 
         private void Awake()
         {
@@ -182,6 +195,7 @@ namespace TOYOTOU.Runtime
                 magnitude = _maxSpeed;
             }
             _previousVelocity = magnitude; // 最後の速度を記録する。
+            OnSpeedChanged?.Invoke(magnitude, _maxSpeed);
 
             velocity = new(velocity.x, originY, velocity.z);
             _rb.linearVelocity = velocity;
