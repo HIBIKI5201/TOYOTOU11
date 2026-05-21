@@ -1,6 +1,7 @@
 using SymphonyFrameWork.Attribute;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TOYOTOU.Runtime
 {
@@ -25,7 +26,24 @@ namespace TOYOTOU.Runtime
         /// </summary>
         public event Action<float, float> OnHitPointChanged;
 
+        /// <summary>
+        /// 速度が変化した時に通知されるイベント
+        /// 第一引数が現在値、第二引数が最大値
+        /// </summary>
+
         public event Action<float, float> OnSpeedChanged;
+
+        /// <summary>
+        /// スキル1のクールタイムが変化した時に通知されるイベント
+        /// 第一引数が現在値、第二引数が最大値
+        /// </summary>
+        public event Action<float, float> OnSkill1CoolTimeChanged;
+
+        /// <summary>
+        /// スキル2のクールタイムが変化した時に通知されるイベント
+        /// 第一引数が現在値、第二引数が最大値
+        /// </summary>
+        public event Action<float, float> OnSkill2CoolTimeChanged;
 
         /// <summary>
         /// 物理演算用のRigidbodyを取得します
@@ -57,7 +75,7 @@ namespace TOYOTOU.Runtime
         /// </summary>
         /// <param name="playerStatus">プレイヤーの基本ステータス</param>
         /// <param name="model">プレイヤーの表示モデル制御</param>
-        public void Init(PlayerStatus playerStatus, PlayerModelController model, SkillBase skill1, SkillBase skill2)
+        public void Init(PlayerStatus playerStatus, PlayerModelController model, PlayerManager other, SkillBase skill1, SkillBase skill2)
         {
             _model = model;
             _maxHitPoint = playerStatus.MaxHitPoint;
@@ -74,6 +92,11 @@ namespace TOYOTOU.Runtime
             _skill2 = skill2;
 
             model.SetParent(_rotater.transform);
+
+            _keyConfig.Skill1Action.started += Skill1Invoke;
+            _keyConfig.Skill2Action.started += Skill2Invoke;
+
+            _other = other;
         }
 
         /// <summary>
@@ -139,8 +162,12 @@ namespace TOYOTOU.Runtime
         private Vector3 _addVelocity;
         private float _previousVelocity;
         private Vector3 _preSleepVelocity;
+
+        private PlayerManager _other;
         private SkillBase _skill1;
         private SkillBase _skill2;
+        private float _skill1CoolTime;
+        private float _skill2CoolTime;
 
         private void Awake()
         {
@@ -165,6 +192,21 @@ namespace TOYOTOU.Runtime
             Vector2 input = _keyConfig.GetMoveValue();
             Vector3 moveDirection = new Vector3(input.x, 0, input.y);
             _addVelocity = moveDirection * _acceleration;
+
+            if (0 < _skill1CoolTime)
+            {
+                _skill1CoolTime -= Time.deltaTime;
+                if (0 < _skill1CoolTime) { _skill1CoolTime = 0; }
+
+                OnSkill1CoolTimeChanged?.Invoke(_skill1CoolTime, _skill1.CoolTime);
+            }
+            if (0 < _skill2CoolTime)
+            {
+                _skill2CoolTime -= Time.deltaTime;
+                if (0 < _skill2CoolTime) { _skill2CoolTime = 0; }
+
+                OnSkill2CoolTimeChanged?.Invoke(_skill2CoolTime, _skill2.CoolTime);
+            }
         }
 
         private void FixedUpdate()
@@ -200,6 +242,22 @@ namespace TOYOTOU.Runtime
 
             velocity = new(velocity.x, originY, velocity.z);
             _rb.linearVelocity = velocity;
+        }
+
+        private void Skill1Invoke(InputAction.CallbackContext context)
+        {
+            if (0 < _skill1CoolTime) { return; }
+
+            _skill1.Execute(this, _other);
+            _skill1CoolTime = _skill1.CoolTime;
+        }
+
+        private void Skill2Invoke(InputAction.CallbackContext context)
+        {
+            if (0 < _skill2CoolTime) { return; }
+
+            _skill2.Execute(this, _other);
+            _skill2CoolTime = _skill2.CoolTime;
         }
     }
 }
