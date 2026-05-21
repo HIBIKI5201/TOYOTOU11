@@ -26,6 +26,11 @@ namespace TOYOTOU.Runtime
         [Tooltip("プレイヤー2のモデル選択を管理するコンポーネント")]
         [SerializeField] private PlayerModelSelector _selector2;
 
+        [SerializeField] private SkillSelector _player1skill1Selector;
+        [SerializeField] private SkillSelector _player1skill2Selector;
+        [SerializeField] private SkillSelector _player2skill1Selector;
+        [SerializeField] private SkillSelector _player2skill2Selector;
+
         [Tooltip("プレイヤー1のUIナビゲーションを管理するクラス")]
         [SerializeField] private UINavigater _player1Navigater;
         [Tooltip("プレイヤー2のUIナビゲーションを管理するクラス")]
@@ -42,6 +47,10 @@ namespace TOYOTOU.Runtime
             state.Player2Model = _selector2.GetSelectedModel();
             state.Player1Status = _dataRepository.States[_selector1.Index];
             state.Player2Status = _dataRepository.States[_selector2.Index];
+            state.Player1Skill1 = _player1skill1Selector.GetSelectedSkill();
+            state.Player1Skill2 = _player1skill2Selector.GetSelectedSkill();
+            state.Player2Skill1 = _player2skill1Selector.GetSelectedSkill();
+            state.Player2Skill2 = _player2skill2Selector.GetSelectedSkill();
 
             _gm.SetActiveIngameObjs(true);
             _ingameLoop.GameStart();

@@ -17,8 +17,10 @@ namespace TOYOTOU.Runtime
             try
             {
                 _playerInit.Init(_gm);
+                _uiManager.Init();
 
                 await _timeline.Play();
+                _uiManager.Visible();
                 _timer.StartTimer();
                 _playerInit.PlayerControlEnable();
 
@@ -38,5 +40,6 @@ namespace TOYOTOU.Runtime
         [SerializeField] private OpenningTimeline _timeline;
         [SerializeField] private InGameTimer _timer;
         [SerializeField] private ResultManager _result;
+        [SerializeField] private InGameUIManager _uiManager;
     }
 }

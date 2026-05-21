@@ -87,6 +87,12 @@ namespace TOYOTOU.Runtime
                     case 0:
                         _playerSelector.Next(input.x);
                         break;
+                    case 1:
+                        _skill1Selector.Next(input.x);
+                        break;
+                    case 2:
+                        _skill2Selector.Next(input.x);
+                        break;
                 }
 
                 UIArrow arrow = input.x > 0 ? _selectArrows.GetRightArrow(_index) : _selectArrows.GetLeftArrow(_index);
