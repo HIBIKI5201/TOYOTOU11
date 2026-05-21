@@ -26,6 +26,9 @@ namespace TOYOTOU.Runtime
                 Task playerTask = _playerInit.WaitAnyPlayerDead(destroyCancellationToken).AsTask();
                 await Task.WhenAny(timerTask, playerTask);
                 _result.JudgeWinner(_playerInit);
+
+                await Awaitable.WaitForSecondsAsync(5, destroyCancellationToken);
+                _gm.GameReset();
             }
             catch (OperationCanceledException) { }
         }
