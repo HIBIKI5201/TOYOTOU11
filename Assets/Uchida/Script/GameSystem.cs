@@ -41,18 +41,35 @@ public class GameSystem : MonoBehaviour
         
     }
 
+
+    /// <summary>
+    /// もし、enterキーが押されたら以下の操作を行う
+    /// soundaudioの停止
+    /// bgmaudioの停止
+    /// コルーチン操作の起動(timer処理の一種)
+    /// </summary>
     void Update()
     {
-        if (Keyboard.current.fKey.wasPressedThisFrame && !start)
+        if (Keyboard.current.enterKey.wasPressedThisFrame && !start && winner)
         {
             start = true;
-            bgm.Stop();           
+            bgm.Stop();
+            sound.Stop();
             title.SetActive(false);
+            winner.SetActive(false);
 
             StartCoroutine(BattleStart());
         }
     }
 
+
+    /// <summary>
+    /// 最初の2秒(2f)は、readyobjectをtrueに
+    ///次の１秒(1f)は、Gosignobjectをtrueにする
+    ///またその次の30秒間、timetextobjectのtrue
+    ///そのobject内のtimerテキストコンポーネントのテキストの更新をwhileで行う
+    /// </summary>
+    /// <returns></returns>
     IEnumerator BattleStart()
     {
         ready.SetActive(true);
@@ -81,7 +98,10 @@ public class GameSystem : MonoBehaviour
 
         Finish();
     }
-
+    /// <summary>
+    /// 30秒が経過したらFinishメソッドを呼び出し、
+    /// またenterキーが押されるまで、bgmを再生する
+    /// </summary>
     void Finish()
     {
         Debug.Log("time up");
