@@ -6,6 +6,8 @@ namespace TOYOTOU.Runtime
     {
         public override void Execute(PlayerManager self, PlayerManager other)
         {
+            Debug.Log($"蘇るスキルを発動");
+
             self.transform.position = _position;
             self.Rigidbody.linearVelocity *= _damping;
             if (_particle) { Object.Instantiate(_particle, _position, Quaternion.identity); }

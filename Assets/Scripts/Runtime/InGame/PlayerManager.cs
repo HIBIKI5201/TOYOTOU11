@@ -165,6 +165,7 @@ namespace TOYOTOU.Runtime
         private Vector3 _addVelocity;
         private float _previousVelocity;
         private Vector3 _preSleepVelocity;
+        private Renderer[] _renderers;
 
         private PlayerManager _other;
         private SkillBase _skill1;

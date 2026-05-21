@@ -14,28 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skill1:
     rid: 860377121961804140
-  _skill1Name: 
-  _skill1Icon: {fileID: 0}
-  _skill1Explain: 
-  _skill1Cooldown: 0
   _skill2:
     rid: 860377121961804141
-  _skill2Name: 
-  _skill2Icon: {fileID: 0}
-  _skill2Explain: 
-  _skill2Cooldown: 0
   _skill3:
     rid: 860377121961804142
-  _skill3Name: 
-  _skill3Icon: {fileID: 2800000, guid: 291374a43a49ef046bd7659d10810571, type: 3}
-  _skill3Explain: 
-  _skill3Cooldown: 0
   _skill4:
     rid: 860377121961804143
-  _skill4Name: 
-  _skill4Icon: {fileID: 0}
-  _skill4Explain: 
-  _skill4Cooldown: 0
   references:
     version: 2
     RefIds:
@@ -43,33 +27,42 @@ MonoBehaviour:
       type: {class: SkillFire, ns: TOYOTOU.Runtime, asm: Assembly-CSharp}
       data:
         _naame: "\u71C3\u3048\u308B"
-        _icon: {fileID: 21300000, guid: 575f0768799e8504a929d65ae3bc2c28, type: 3}
+        _icon: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
         _explain: "\u71C3\u3048\u308B\u30B9\u30AD\u30EB"
-        _cooltime: 0
+        _cooltime: 5
+        _duration: 5
+        _damage: 10
+        _count: 5
+        _particle: {fileID: 8764043878647920493, guid: c4ed38c72957f2241ad144a1614956d9, type: 3}
     - rid: 860377121961804141
       type: {class: SkillIce, ns: TOYOTOU.Runtime, asm: Assembly-CSharp}
       data:
         _naame: "\u51CD\u3048\u308B"
-        _icon: {fileID: 21300000, guid: edf38f19c43c11b498eabbd356aed2e5, type: 3}
+        _icon: {fileID: 21300000, guid: 2bccd332882fcd14b9e4c377e432c587, type: 3}
         _explain: "\u51CD\u3048\u308B\u30B9\u30AD\u30EB"
-        _cooltime: 0
+        _cooltime: 5
+        _duration: 5
+        _damping: 0.5
+        _particle: {fileID: 4932088507883938021, guid: 0e5709a7ddb77924090c112cf73bb98a, type: 3}
     - rid: 860377121961804142
       type: {class: SkillDelete, ns: TOYOTOU.Runtime, asm: Assembly-CSharp}
       data:
         _naame: "\u6D88\u3048\u308B"
-        _icon: {fileID: 21300000, guid: 351d1172e9567a64aa38c7890a1c3d98, type: 3}
+        _icon: {fileID: 21300000, guid: cdec13907ffc75749ab2ed436bec6b14, type: 3}
         _explain: "\u6D88\u3048\u308B\u30B9\u30AD\u30EB"
-        _cooltime: 0
-        _duration: 0
+        _cooltime: 5
+        _duration: 5
         _ignoreLayer:
           serializedVersion: 2
-          m_Bits: 0
+          m_Bits: 8
+        _effect: {fileID: 0}
     - rid: 860377121961804143
       type: {class: SkillResurrection, ns: TOYOTOU.Runtime, asm: Assembly-CSharp}
       data:
-        _naame: "\u3088\u307F\u304C\u3048\u308B"
-        _icon: {fileID: 0}
-        _explain: "\u3088\u307F\u304C\u3048\u308B\u30B9\u30AD\u30EB"
-        _cooltime: 0
+        _naame: "\u8607\u308B"
+        _icon: {fileID: 21300000, guid: 14a0f66a7be165c4ba476e3d7c40e390, type: 3}
+        _explain: "\u8607\u308B\u30B9\u30AD\u30EB"
+        _cooltime: 5
         _position: {x: 0, y: 0, z: 0}
-        _Damping: 0.5
+        _damping: 0.5
+        _particle: {fileID: 0}

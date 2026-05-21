@@ -10,36 +10,58 @@ namespace TOYOTOU.Runtime
     public class SkillSelector : MonoBehaviour
     {
         /// <summary>
-        /// 現在選択されているプレイヤーモデルのコントローラーを取得します
+        /// 現在選択されているスキルを取得
         /// </summary>
-        /// <returns>選択中のモデルコントローラー</returns>
         public SkillBase GetSelectedSkill() => _skillBases[_index];
 
         /// <summary>
-        /// 現在選択されているインデックスを取得します
+        /// 現在選択されているIndex
         /// </summary>
         public int Index => _index;
 
         /// <summary>
-        /// 指定された方向にモデルを切り替えます
+        /// 次/前へ移動
         /// </summary>
-        /// <param name="selector">切り替え方向（正で次、負で前）</param>
         public void Next(float selector)
         {
             int dir = (int)Mathf.Sign(selector);
-            Change(_index + dir);
+
+            if (dir == 0)
+                return;
+
+            int nextIndex = _index;
+
+            for (int i = 0; i < _skillBases.Length; i++)
+            {
+                nextIndex += dir;
+
+                // ループ
+                nextIndex = (nextIndex + _skillBases.Length) % _skillBases.Length;
+
+                // 相手と被っていなければ採用。
+                if (_other == null || nextIndex != _other.Index)
+                {
+                    Change(nextIndex);
+                    return;
+                }
+            }
         }
 
         /// <summary>
-        /// 指定されたインデックスのモデルに切り替えます
+        /// 指定Indexへ変更
         /// </summary>
-        /// <param name="index">切り替え先のインデックス</param>
         public void Change(int index)
         {
             index = (index + _skillBases.Length) % _skillBases.Length;
 
-            SkillBase model = _skillBases[index];
-            ApplyUI(model);
+            // 相手と被るなら変更しない
+            if (_other != null && index == _other.Index)
+                return;
+
+            SkillBase skill = _skillBases[index];
+
+            ApplyUI(skill);
+
             _index = index;
         }
 
@@ -47,12 +69,19 @@ namespace TOYOTOU.Runtime
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _image;
         [SerializeField] private int _index;
+        [SerializeField] private SkillSelector _other;
 
         private SkillBase[] _skillBases;
 
         private void Start()
         {
-            _skillBases = new SkillBase[] { _repo.Skill1, _repo.Skill2, _repo.Skill3, _repo.Skill4 };
+            _skillBases = new SkillBase[]
+            {
+                _repo.Skill1,
+                _repo.Skill2,
+                _repo.Skill3,
+                _repo.Skill4
+            };
 
             ApplyUI(_skillBases[_index]);
         }
