@@ -98,5 +98,4 @@ public class GameSystem : MonoBehaviour
 
         start = false;
     }
-
 }
