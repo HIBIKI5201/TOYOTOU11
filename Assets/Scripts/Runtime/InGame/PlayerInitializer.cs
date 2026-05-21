@@ -30,8 +30,8 @@ namespace TOYOTOU.Runtime
             PlayerStatus status1 = state.Player1Status;
             PlayerStatus status2 = state.Player2Status;
 
-            _player1Manager.Init(status1, state.Player1Model);
-            _player2Manager.Init(status2, state.Player2Model);
+            _player1Manager.Init(status1, state.Player1Model, state.Player1Skill1, state.Player1Skill2);
+            _player2Manager.Init(status2, state.Player2Model, state.Player2Skill1, state.Player2Skill2);
 
             _resolver.Init(_player1Manager, _player2Manager);
         }
