@@ -18,6 +18,29 @@ namespace TOYOTOU.Runtime
         public PlayerModelController Player2Model;
 
         /// <summary>
+        /// 1Pのスキル1
+        /// </summary>
+        public SkillBase Player1Skill1;
+
+        /// <summary>
+        /// 1Pのスキル2
+        /// </summary>
+
+        public SkillBase Player1Skill2;
+
+        /// <summary>
+        /// 2Pのスキル1
+        /// </summary>
+
+        public SkillBase Player2Skill1;
+
+        /// <summary>
+        /// 2Pのスキル2
+        /// </summary>
+
+        public SkillBase Player2Skill2;
+
+        /// <summary>
         /// 1Pのプレイヤーステータス
         /// </summary>
         public PlayerStatus Player1Status;
