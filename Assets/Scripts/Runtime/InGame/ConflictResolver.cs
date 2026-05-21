@@ -6,6 +6,7 @@ namespace TOYOTOU.Runtime
     /// <summary>
     /// プレイヤー間の衝突（コンフリクト）を解決し、ダメージ計算やノックバック処理を行うクラス。
     /// </summary>
+    [RequireComponent(typeof(AudioSource))]
     public class ConflictResolver : MonoBehaviour
     {
         /// <summary>
@@ -43,6 +44,7 @@ namespace TOYOTOU.Runtime
             alpha2Beta.Normalize();
 
             OnConflicted?.Invoke();
+            _source?.Play();
 
             alpha.Sleep();
             beta.Sleep();
@@ -58,6 +60,11 @@ namespace TOYOTOU.Runtime
 
         private PlayerManager _player1;
         private PlayerManager _player2;
+        private AudioSource _source;
+        private void Awake()
+        {
+            _source = GetComponent<AudioSource>();
+        }
 
         private void ResolveRigidBody(Rigidbody rb, Vector3 dir, float force)
         {

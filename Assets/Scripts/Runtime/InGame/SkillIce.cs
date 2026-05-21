@@ -7,18 +7,20 @@ namespace TOYOTOU.Runtime
         public override async void Execute(PlayerManager self, PlayerManager other)
         {
             Debug.Log($"凍えるスキルを発動");
+            GameObject particle = Object.Instantiate(_particle, other.transform.position, Quaternion.identity, other.transform);
 
             Collider[] colliders = other.GetComponentsInChildren<Collider>();
             foreach (Collider collider in colliders)
             {
                 float origin = collider.material.dynamicFriction;
                 collider.material.dynamicFriction *= _damping;
-                Object.Instantiate(_particle, other.transform.position, Quaternion.identity, other.transform);
-
+                
                 await Awaitable.WaitForSecondsAsync(_duration);
 
                 collider.material.dynamicFriction = origin;
             }
+
+            Object.Destroy(particle);
         }
 
         [SerializeField]

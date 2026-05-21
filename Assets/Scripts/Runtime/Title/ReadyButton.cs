@@ -29,6 +29,8 @@ namespace TOYOTOU.Runtime
             OnValueChanged?.Invoke(_ready);
         }
 
+        [SerializeField] AudioSource _source;
+
         private bool _ready;
 
         private void Effect()
@@ -36,6 +38,7 @@ namespace TOYOTOU.Runtime
             if (_ready)
             {
                 transform.DOScale(0.8f, 0.3f);
+                _source.Play();
             }
             else
             {

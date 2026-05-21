@@ -33,7 +33,7 @@ MonoBehaviour:
         _duration: 5
         _damage: 10
         _count: 5
-        _particle: {fileID: 8764043878647920493, guid: c4ed38c72957f2241ad144a1614956d9, type: 3}
+        _particle: {fileID: 860851187467809478, guid: 674b892b9f6b7b143a11c335950427bf, type: 3}
     - rid: 860377121961804141
       type: {class: SkillIce, ns: TOYOTOU.Runtime, asm: Assembly-CSharp}
       data:
@@ -43,7 +43,7 @@ MonoBehaviour:
         _cooltime: 5
         _duration: 5
         _damping: 0.5
-        _particle: {fileID: 4932088507883938021, guid: 0e5709a7ddb77924090c112cf73bb98a, type: 3}
+        _particle: {fileID: 1312775150382015839, guid: f841a04e0f91b9246bf430f7b1ad06b5, type: 3}
     - rid: 860377121961804142
       type: {class: SkillDelete, ns: TOYOTOU.Runtime, asm: Assembly-CSharp}
       data:
@@ -55,7 +55,7 @@ MonoBehaviour:
         _ignoreLayer:
           serializedVersion: 2
           m_Bits: 8
-        _effect: {fileID: 0}
+        alpha: 0.5
     - rid: 860377121961804143
       type: {class: SkillResurrection, ns: TOYOTOU.Runtime, asm: Assembly-CSharp}
       data:
@@ -65,4 +65,4 @@ MonoBehaviour:
         _cooltime: 5
         _position: {x: 0, y: 0, z: 0}
         _damping: 0.5
-        _particle: {fileID: 0}
+        _particle: {fileID: 6287953604210959080, guid: 5156d6689efbccb4991059f3a5755566, type: 3}

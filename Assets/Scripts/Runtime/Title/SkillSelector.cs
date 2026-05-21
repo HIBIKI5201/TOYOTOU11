@@ -71,6 +71,7 @@ namespace TOYOTOU.Runtime
         [SerializeField] private int _index;
         [SerializeField] private SkillSelector _other;
 
+
         private SkillBase[] _skillBases;
 
         private void Start()

@@ -1,16 +1,19 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TOYOTOU.Runtime
 {
     public class SkillResurrection: SkillBase
     {
-        public override void Execute(PlayerManager self, PlayerManager other)
+        public override async void Execute(PlayerManager self, PlayerManager other)
         {
             Debug.Log($"蘇るスキルを発動");
 
             self.transform.position = _position;
             self.Rigidbody.linearVelocity *= _damping;
-            if (_particle) { Object.Instantiate(_particle, _position, Quaternion.identity); }
+            GameObject particle = Object.Instantiate(_particle, _position, Quaternion.identity);
+            await Awaitable.WaitForSecondsAsync(4);
+            Object.Destroy(particle);
         }
 
         [SerializeField,Tooltip("ワープ位置")]

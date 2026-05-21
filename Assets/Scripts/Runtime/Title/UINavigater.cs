@@ -66,6 +66,10 @@ namespace TOYOTOU.Runtime
         private InputActionKeyConfig _key;
         private SelectArrows _selectArrows;
 
+
+        [SerializeField] AudioSource _hSource;
+        [SerializeField] AudioSource _vSource;
+
         private int _index;
 
         private void MoveHandler(InputAction.CallbackContext context)
@@ -77,6 +81,7 @@ namespace TOYOTOU.Runtime
                 _index = Mathf.Clamp(Math.Sign(-input.y) + _index, 0, 2); // 下に行くほどインデックスが上がるため、input.yが逆転する。
                 _selectArrows.Deactivate(lastIndex);
                 _selectArrows.Activate(_index);
+                _hSource?.Play();
                 return;
             }
 
@@ -94,7 +99,7 @@ namespace TOYOTOU.Runtime
                         _skill2Selector.Next(input.x);
                         break;
                 }
-
+                _vSource?.Play();
                 UIArrow arrow = input.x > 0 ? _selectArrows.GetRightArrow(_index) : _selectArrows.GetLeftArrow(_index);
                 arrow.Selected();
             }

@@ -10,7 +10,7 @@ namespace TOYOTOU.Runtime
 
             int originalExcludeLayers = self.Rigidbody.excludeLayers;
             self.Rigidbody.excludeLayers |= _ignoreLayer;
-            Renderer[] renderers = other.GetComponentsInChildren<Renderer>();
+            Renderer[] renderers = self.GetComponentsInChildren<Renderer>();
             Material[] origin = Transparent(renderers);
 
             await Awaitable.WaitForSecondsAsync(_duration);
@@ -21,8 +21,8 @@ namespace TOYOTOU.Runtime
 
         [SerializeField] private float _duration;
         [SerializeField] private LayerMask _ignoreLayer;
-        [SerializeField] private Material transparentMaterial;
         [SerializeField] private float alpha = 0.5f;
+        private Material transparentMaterial;
         private Material[] Transparent(Renderer[] renderers)
         {
             // URP Lit を使用

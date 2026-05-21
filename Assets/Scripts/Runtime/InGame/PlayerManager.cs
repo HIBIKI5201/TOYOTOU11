@@ -140,6 +140,7 @@ namespace TOYOTOU.Runtime
             if (_remainHitPoint < 0)
             {
                 OnDead?.Invoke();
+                _deadSource.Play();
                 Debug.Log($"{name}が死亡");
             }
         }
@@ -150,6 +151,7 @@ namespace TOYOTOU.Runtime
         [SerializeField, TagSelector] private string _playerTag;
         [Tooltip("プレイヤーの回転制御を管理するコンポーネント")]
         [SerializeField] private RotatePlayer _rotater;
+        [SerializeField] AudioSource _deadSource;
 
         private float _maxHitPoint;
         private float _remainHitPoint;
@@ -186,6 +188,12 @@ namespace TOYOTOU.Runtime
         private void OnDisable()
         {
             _keyConfig.Disable();
+        }
+
+        private void OnDestroy()
+        {
+            _keyConfig.Skill1Action.started -= Skill1Invoke;
+            _keyConfig.Skill2Action.started -= Skill2Invoke;
         }
 
         private void Update()

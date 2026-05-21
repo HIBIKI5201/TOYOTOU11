@@ -7,15 +7,15 @@ namespace TOYOTOU.Runtime
         public override async void Execute(PlayerManager self, PlayerManager other)
         {
             Debug.Log($"燃えるスキルを発動");
-
+            GameObject particle = Object.Instantiate(_particle, other.transform.position, Quaternion.identity, other.transform);
 
             for (int i = 0; i < _count; i++)
             {
                 other.TakeDamage(_damage);
                 await Awaitable.WaitForSecondsAsync(_duration / _count);
-
-                Object.Instantiate(_particle, other.transform.position, Quaternion.identity, other.transform);
             }
+
+            Object.Destroy(particle);
         }
 
         [SerializeField] private float _duration;

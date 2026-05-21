@@ -7,15 +7,9 @@ namespace TOYOTOU.Runtime
     {
         public async void PlayBGM(AudioClip clip)
         {
-            DOTween.Sequence()
-                .Append(_source.DOFade(0, 1))
-                .OnComplete(() =>
-                {
-                    _source.Stop();
-                    _source.clip = clip;
-                    _source.Play();
-                })
-                .Append(_source.DOFade(1, 1));
+            _source.Stop();
+            _source.clip = clip;
+            _source.Play();
         }
 
         private void Awake()
