@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,10 +12,12 @@ public class GameSystem : MonoBehaviour
     public GameObject Gosign;
     public GameObject winner;
     public GameObject title;
+    public GameObject timetext;
 
     [Header("Other")]
     bool start = false;
     public float battletime = 30f;
+    public TMP_Text timer;
 
     [Header("Audio Clips")]
     public AudioClip titleclip;
@@ -32,6 +37,8 @@ public class GameSystem : MonoBehaviour
         Gosign.SetActive(false);
         title.SetActive(true);
         bgm.PlayOneShot(titleclip);
+        timetext.SetActive(false);
+        
     }
 
     void Update()
@@ -42,11 +49,11 @@ public class GameSystem : MonoBehaviour
             bgm.Stop();           
             title.SetActive(false);
 
-            StartCoroutine(BattleFlow());
+            StartCoroutine(BattleStart());
         }
     }
 
-    IEnumerator BattleFlow()
+    IEnumerator BattleStart()
     {
         ready.SetActive(true);
         yield return new WaitForSeconds(2f);
@@ -61,7 +68,16 @@ public class GameSystem : MonoBehaviour
         bgm.loop = true;
         bgm.Play();
 
-        yield return new WaitForSeconds(battletime);
+        timetext.SetActive(true);
+
+        float time = battletime;
+
+        while (time > 0f)
+        {
+            time -= Time.deltaTime;
+            timer.text = time.ToString("F0");
+            yield return null; 
+        }
 
         Finish();
     }
@@ -69,7 +85,7 @@ public class GameSystem : MonoBehaviour
     void Finish()
     {
         Debug.Log("time up");
-
+        timetext.SetActive(!timetext);
         bgm.Stop();
 
         sound.PlayOneShot(rappa);
